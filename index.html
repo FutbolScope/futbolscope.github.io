@@ -4,67 +4,129 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FutbolScope</title>
+
+  <!-- TIPOGRAFÍA PROFESIONAL -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --primary: #0a3d62;
+      --secondary: #3c6382;
+      --accent: #38ada9;
+      --bg: #f4f6f7;
+      --card: white;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f3f3;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
     }
 
+    /* HEADER */
     header {
-      background: #0d47a1;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 20px;
+      padding: 40px 20px;
       text-align: center;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
     }
 
+    header h1 {
+      margin: 0;
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    /* NAV */
     nav {
-      background: #08306b;
-      padding: 10px;
+      background: #0a3d62;
       display: flex;
-      gap: 20px;
       justify-content: center;
+      gap: 30px;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: 0.3s;
     }
 
+    nav a:hover {
+      background: var(--accent);
+      color: black;
+    }
+
+    /* CONTENEDOR */
     .container {
+      max-width: 1200px;
+      margin: 40px auto;
       padding: 20px;
-      max-width: 1000px;
-      margin: auto;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    h1 {
+    h2 {
       text-align: center;
-      margin-bottom: 20px;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 25px;
     }
 
+    /* CARDS PROFESIONALES */
     .card {
-      background: #e8e8e8;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      background: var(--card);
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      transition: 0.3s;
+      border-left: 6px solid var(--accent);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 12px 20px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #555;
     }
 
     footer {
-      margin-top: 40px;
       text-align: center;
-      padding: 20px;
-      background: #0d47a1;
+      padding: 25px;
+      margin-top: 40px;
+      background: #0a3d62;
       color: white;
+      font-size: 14px;
     }
   </style>
 </head>
+
 <body>
+
   <header>
-    <h2>FutbolScope</h2>
+    <h1>FutbolScope</h1>
     <p>Tu perfil, tus estadísticas, tu progreso futbolístico.</p>
   </header>
 
@@ -76,27 +138,27 @@
   </nav>
 
   <div class="container" id="inicio">
-    <h1>Bienvenido a FutbolScope</h1>
-    <p>Aquí podrás ver tu evolución como jugador, tus números y tu progreso.</p>
+    <h2>Bienvenido a FutbolScope</h2>
 
     <div class="card">
       <h3>Crear tu Perfil</h3>
-      <p>Muy pronto podrás registrar tu usuario y comenzar a crear tu identidad futbolística.</p>
+      <p>Muy pronto podrás registrar tu usuario, posición, club y comenzar a construir tu identidad futbolística.</p>
     </div>
 
     <div class="card">
       <h3>Estadísticas</h3>
-      <p>Goles, asistencias, partidos jugados, rendimiento por partido y mucho más.</p>
+      <p>Consulta tus números: goles, asistencias, partidos jugados, minutos, rendimiento y más métricas avanzadas.</p>
     </div>
 
     <div class="card">
       <h3>Ligas Registradas</h3>
-      <p>En esta sección podrás consultar torneos, veedurías y resultados.</p>
+      <p>Explora torneos, veedurías, pruebas, resultados y clasificaciones actualizadas.</p>
     </div>
   </div>
 
   <footer>
     © 2025 FutbolScope — Proyecto en desarrollo
   </footer>
+
 </body>
 </html>
