@@ -15,10 +15,21 @@
       color: #fff;
     }
 
+    /* NUEVA PALETA MÁS VARIADA */
+    :root {
+      --azul-oscuro: #0d47a1;
+      --azul-claro: #42a5f5;
+      --verde: #00c853;
+      --naranja: #ff8f00;
+      --rojo: #d32f2f;
+      --blanco-trans: rgba(255,255,255,0.1);
+      --glass: rgba(0,0,0,0.35);
+    }
+
     header {
       padding: 40px 20px;
       text-align: center;
-      background: rgba(0,0,0,0.25);
+      background: var(--glass);
       backdrop-filter: blur(6px);
     }
 
@@ -26,7 +37,7 @@
       font-size: 3rem;
       font-weight: 700;
       letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(255,255,255,0.2);
+      text-shadow: 0 0 10px rgba(255,255,255,0.25);
     }
 
     nav {
@@ -34,7 +45,7 @@
       justify-content: center;
       gap: 30px;
       padding: 15px;
-      background: rgba(0,0,0,0.4);
+      background: var(--glass);
       backdrop-filter: blur(4px);
       position: sticky;
       top: 0;
@@ -49,7 +60,7 @@
       transition: 0.3s;
     }
     nav a:hover {
-      color: #90caf9;
+      color: var(--naranja);
       transform: scale(1.1);
     }
 
@@ -75,30 +86,38 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(8px);
+      background: var(--blanco-trans);
+      backdrop-filter: blur(10px);
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       border-radius: 15px;
       padding: 20px;
       transition: 0.3s;
-      border: 1px solid rgba(255,255,255,0.15);
+      border-left: 6px solid var(--azul-claro);
     }
+
+    /* VARIACIÓN DE COLORES SEGÚN TARJETA */
+    .card:nth-child(1) { border-left-color: var(--verde); }
+    .card:nth-child(2) { border-left-color: var(--naranja); }
+    .card:nth-child(3) { border-left-color: var(--azul-claro); }
+    .card:nth-child(4) { border-left-color: var(--rojo); }
 
     .card:hover {
       transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      box-shadow: 0 0 30px rgba(0,0,0,0.45);
     }
 
     .card h3 {
       font-size: 1.6rem;
       margin-bottom: 10px;
+      color: #fff;
+      font-weight: 700;
     }
 
     footer {
       margin-top: 60px;
       text-align: center;
       padding: 25px;
-      background: rgba(0,0,0,0.35);
+      background: var(--glass);
       backdrop-filter: blur(6px);
       font-size: 0.9rem;
     }
@@ -112,16 +131,16 @@
       display: inline-block;
       margin: 10px;
       padding: 12px 25px;
-      background: #1e88e5;
+      background: var(--naranja);
       border-radius: 30px;
       color: #fff;
       text-decoration: none;
       font-weight: 600;
-      transition: 0.3s;
+      transition: 0.25s;
     }
 
     .btn:hover {
-      background: #64b5f6;
+      background: var(--verde);
       transform: scale(1.08);
     }
   </style>
