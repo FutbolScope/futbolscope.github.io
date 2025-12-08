@@ -4,310 +4,266 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FutbolScope</title>
-  <meta name="description" content="FutbolScope — estadísticas, guías y herramientas para jugadores juveniles.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="description" content="FutbolScope — Estadísticas, rankings y herramientas para jóvenes futbolistas." />
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+
+  <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg-1: #061226;
-      --bg-2: #0b1530;
-      --card: rgba(255,255,255,0.03);
-      --muted: #94a3b8;
-      --accent: #ff8f00;
-      --accent-2: #00c853;
-      --primary: #2563eb;
+      --bg-1:#041225;
+      --bg-2:#071a36;
+      --card:#071028;
+      --muted:#9fb6d6;
+      --accent:#ff8f00;
+      --accent-2:#42a5f5;
       --glass: rgba(255,255,255,0.04);
-      --radius: 12px;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      font-family:'Poppins',sans-serif;
-      background:linear-gradient(135deg,var(--bg-1),var(--bg-2));
-      color:#e6eef8;
-      min-height:100vh;
-      display:flex;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      margin:0;font-family:'Poppins',sans-serif;
+      background: linear-gradient(135deg,var(--bg-1),var(--bg-2));
+      color:#e6eef8;display:flex;min-height:100vh;
     }
 
-    /* --- SIDEBAR --- */
+    /* ============ SIDEBAR ============ */
     .sidebar{
-      width:240px;
-      padding:20px;
+      width:240px; padding:22px; position:fixed; left:0;top:0; bottom:0;
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-right:1px solid rgba(255,255,255,0.02);
-      position:fixed;
-      left:0; top:0; bottom:0;
-      display:flex;
-      flex-direction:column;
-      gap:16px;
+      border-right:1px solid rgba(255,255,255,0.03);
+      display:flex;flex-direction:column;gap:14px;
     }
     .brand{display:flex;gap:12px;align-items:center}
-    .logo-img{width:54px;height:54px;border-radius:12px;object-fit:cover;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-    .brand h1{font-size:18px; margin:0; font-weight:700; color:#fff}
-    .brand p{font-size:12px;color:var(--muted);margin-top:2px}
+    .logo-circle{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:800;color:white;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .brand h1{font-size:18px;margin:0}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
 
-    .nav{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+    .nav{margin-top:10px;display:flex;flex-direction:column;gap:6px}
     .nav a{
-      display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color: #cfe8ff;
-      text-decoration:none;font-weight:600; transition: all .18s ease;
+      padding:10px 12px;border-radius:10px;color: #cfe8ff;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:10px;
+      transition:all .18s;
     }
-    .nav a:hover{transform:translateX(6px); background: rgba(255,255,255,0.025); color:#fff}
+    .nav a:hover{background: rgba(255,255,255,0.03); color:white; transform:translateX(6px)}
 
-    .sidebar .small {margin-top:auto;font-size:12px;color:var(--muted)}
+    .sidebar .small{margin-top:auto;font-size:12px;color:var(--muted)}
 
-    /* --- MAIN --- */
-    main{flex:1;margin-left:240px;padding:28px 36px;}
+    /* ============ MAIN ============ */
+    main{flex:1;margin-left:260px;padding:28px 36px 48px 36px}
+    .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .search{flex:1;display:flex;gap:10px}
+    .search input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;outline:none}
+    .search button{padding:10px 14px;border-radius:12px;border:none;background:var(--accent-2);color:#052033;font-weight:700;cursor:pointer}
 
-    .topbar{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
-    .search{flex:1;display:flex;gap:10px;align-items:center}
-    .search input{
-      flex:1;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
-      background:transparent;color:#e6eef8;outline:none;font-weight:500;
-    }
-    .search button{
-      padding:10px 14px;border-radius:10px;border:none;background:var(--primary);color:white;cursor:pointer;font-weight:700;
-    }
     .actions{display:flex;gap:10px;align-items:center}
+    .btn-ghost{padding:9px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;cursor:pointer}
+    .btn-pro{padding:10px 14px;border-radius:12px;background:var(--accent);color:#081226;font-weight:800;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(255,143,0,0.08)}
 
-    .btn-ghost{padding:9px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef8;cursor:pointer}
-
-    /* --- HERO --- */
-    .hero{display:flex;gap:20px;align-items:center;padding:22px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+    /* hero */
+    .hero{display:flex;gap:20px;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:28px;border-radius:14px}
     .hero-left{flex:1}
-    .hero h1{font-size:34px;line-height:1.02}
-    .hero p{color:var(--muted);margin-top:8px}
-    .hero-right{
-      width:180px;height:180px;border-radius:22px;background:var(--card);display:flex;align-items:center;justify-content:center;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .hero-right img{width:140px;height:140px;object-fit:contain;border-radius:18px}
+    .hero h1{font-size:34px;margin:0 0 6px 0;line-height:1}
+    .hero p{color:var(--muted);margin:0 0 12px 0}
+    .hero-cta{display:flex;gap:10px}
 
-    /* --- GRID / CARDS --- */
+    .hero-right{width:220px;text-align:center;padding:12px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+    .hero-right h4{margin:0;color:var(--muted);font-size:13px}
+    .hero-right strong{display:block;font-size:20px;margin-top:8px}
+
+    /* grid */
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
-    .card{background:var(--card);padding:18px;border-radius:12px;border-left:6px solid rgba(255,255,255,0.02);box-shadow:0 10px 30px rgba(0,0,0,0.45)}
-    .card h3{color:white;margin-bottom:8px}
-    .card p{color:var(--muted);font-size:14px;line-height:1.4}
+    .card{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .card h3{margin:0 0 8px 0;color:white}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
     .big{grid-column:span 2}
-    .small-list{margin-top:10px;color:var(--muted);font-size:14px}
+    .tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .tool-btn{background:linear-gradient(90deg,var(--accent-2),var(--accent));padding:10px 16px;border-radius:999px;color:white;font-weight:800;border:none;cursor:pointer;transition:transform .18s}
+    .tool-btn:hover{transform:scale(1.05)}
 
-    /* --- HERRAMIENTAS (botones estilo pro que querías) --- */
-    .tool-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .tool{
-      flex:1;min-width:180px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-      padding:14px;border-radius:12px;display:flex;flex-direction:column;gap:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.03);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .tool:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(2,6,23,0.6)}
-    .tool .title{font-weight:700;font-size:15px}
-    .tool .desc{color:var(--muted);font-size:13px}
+    .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--accent-2);font-weight:700}
 
-    .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--primary);font-weight:700}
-
-    /* --- FOOTER --- */
-    footer{margin-top:28px;color:var(--muted);padding-top:20px;border-top:1px solid rgba(255,255,255,0.02)}
+    footer{margin-top:28px;padding:20px;color:var(--muted);font-size:13px;text-align:center}
 
     /* responsive */
-    @media (max-width:980px){
-      .grid{grid-template-columns:repeat(1,1fr)}
-      .big{grid-column:span 1}
-      main{padding:20px;margin-left:0}
+    @media (max-width:880px){
+      main{margin-left:0;padding:18px}
       .sidebar{display:none}
-      body{flex-direction:column}
+      .grid{grid-template-columns:1fr}
+      .big{grid-column:span 1}
+      .hero{flex-direction:column;align-items:flex-start}
     }
 
-    /* small helper */
-    .muted{color:var(--muted);font-size:13px}
-    .verified{display:inline-block;padding:6px 10px;border-radius:8px;background:rgba(0,0,0,0.18);font-weight:700;color:var(--muted)}
   </style>
 </head>
 <body>
-  <!-- SIDEBAR (usa logo.png en la raíz del repo) -->
-  <aside class="sidebar" aria-label="Navegación principal">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" role="navigation" aria-label="Menú principal">
     <div class="brand">
-      <img class="logo-img" src="logo.png" alt="FutbolScope logo">
+      <!-- logo.svg debe estar en la raíz del repo -->
+      <div class="logo-circle"><img src="logo.svg" alt="FutbolScope" style="width:34px;height:34px;display:block"></div>
       <div>
         <h1>FutbolScope</h1>
         <p>Estadísticas • Talento • Ranking</p>
       </div>
     </div>
 
-    <nav class="nav" role="navigation" aria-label="principal">
+    <nav class="nav">
       <a href="#inicio">🏠 Inicio</a>
       <a href="#noticias">📰 Noticias</a>
       <a href="#rankings">📈 Rankings</a>
       <a href="#guias">📚 Guías</a>
       <a href="#herramientas">🛠 Herramientas</a>
       <a href="#pro">💎 PRO</a>
-      <a href="#contacto">📞 Contacto</a>
     </nav>
 
-    <div class="small">
-      <div class="muted">© 2025 FutbolScope</div>
-      <div class="muted" style="margin-top:6px">Términos • Privacidad • Cookies</div>
-    </div>
+    <div class="small">© 2025 FutbolScope — Hecho por Sasssti</div>
   </aside>
 
+  <!-- MAIN -->
   <main>
-    <!-- TOP BAR -->
+    <!-- TOPBAR: búsqueda + acciones -->
     <div class="topbar">
       <div class="search" role="search">
-        <input id="q" type="search" placeholder="Buscar jugadores, ligas, artículos..." aria-label="Buscar">
+        <input id="q" type="search" placeholder="Buscar jugadores, ligas, artículos..." aria-label="Buscar"/>
         <button onclick="buscar()">🔍 Buscar</button>
       </div>
-
-      <div class="actions" aria-hidden="true">
+      <div class="actions">
         <button class="btn-ghost" onclick="abrirLogin()">Iniciar sesión</button>
         <button class="btn-ghost" onclick="abrirRegistro()">Registrarse</button>
+        <button class="btn-pro" onclick="abrirPro()">PRO</button>
       </div>
     </div>
 
     <!-- HERO -->
-    <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <section class="hero" id="inicio">
       <div class="hero-left">
-        <h1 id="hero-title">Tu evolución futbolística empieza aquí</h1>
-        <p>Registra tus números, compara tu rendimiento y prepárate para las pruebas y veedurías.</p>
-        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <h1>Tu evolución futbolística empieza aquí</h1>
+        <p>Registra tus números, compara tu rendimiento y prepárate para dar lo mejor en pruebas y torneos.</p>
+        <div class="hero-cta">
           <span class="pill">Calculadoras</span>
-          <span class="pill">Guías rápidas</span>
+          <span class="pill">Guías</span>
           <span class="pill">Rankings</span>
         </div>
       </div>
 
-      <div class="hero-right" aria-hidden="true">
-        <!-- logo grande visible en hero -->
-        <img src="logo.png" alt="FutbolScope logo (hero)">
+      <div class="hero-right" aria-hidden="false">
+        <h4>Estadísticas rápidas</h4>
+        <strong id="summary">Goles: 0 • Asist: 0</strong>
+        <div style="margin-top:10px;color:var(--muted);font-size:13px">Estado de verificación: <span id="verify-status">NO VERIFICADO</span></div>
       </div>
     </section>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- GRID PRINCIPAL -->
     <section class="grid" aria-label="Contenido principal">
-      <!-- Noticias principal -->
-      <article class="card big" id="noticias" aria-labelledby="noticias-title">
-        <h3 id="noticias-title">Noticias destacadas</h3>
-        <p id="feed">Últimas noticias sobre veedurías, torneos y consejos para jugadores juveniles.</p>
-        <div class="muted" style="margin-top:12px">artículos sobre veedurías locales:</div>
-      </article>
-
-      <!-- Ranking -->
-      <aside class="card" id="rankings">
-        <h3>Ranking local</h3>
-        <p class="muted">Top jugadores por ciudad y posición (solo perfiles verificados cuentan).</p>
-        <ul class="small-list" id="ranking-list">
-          <li>#1 — Santiago (Extremo) — <span class="verified">VERIFICADO</span></li>
-          <li>#2 — Lucas (Delantero) — <span class="verified">VERIFICADO</span></li>
-          <li>#3 — Mateo (Centrocampista) — <span class="verified">VERIFICADO</span></li>
-        </ul>
-        <p class="muted" style="margin-top:10px;font-size:13px">Nota: los rankings usan solo estadísticas verificadas por entrenadores o torneos para evitar fraudes.</p>
-      </aside>
-
-      <!-- Guías -->
-      <section class="card" id="guias">
-        <h3>Guías rápidas</h3>
-        <p class="muted">Entrenamientos, nutrición y consejos tácticos preparados por entrenadores y curados por la comunidad.</p>
-        <ol style="margin-top:10px;color:var(--muted);font-size:14px">
-          <li>Calentamiento para velocidad (10 min)</li>
-          <li>Ejercicios de cambio de ritmo (3x)</li>
-          <li>Rutina de resistencia semanal</li>
-        </ol>
-      </section>
-
-      <!-- Herramientas -->
-      <section class="card" id="herramientas">
-        <h3>Herramientas</h3>
-        <p class="muted">Utilidades rápidas para medir y planear tu entrenamiento. (Algunas requieren cuenta)</p>
-
-        <!-- tool-row con botones estilo bonito -->
-        <div class="tool-row" style="margin-top:12px;">
-          <div class="tool" role="button" tabindex="0" onclick="abrirIMC()">
-            <div class="title">📦 IMC</div>
-            <div class="desc">Calcula tu índice de masa corporal.</div>
-          </div>
-
-          <div class="tool" role="button" tabindex="0" onclick="abrirVel()">
-            <div class="title">⏱ Velocidad 30m</div>
-            <div class="desc">Mide tu sprint y mejora la aceleración.</div>
-          </div>
-
-          <div class="tool" role="button" tabindex="0" onclick="abrirRut()">
-            <div class="title">⚡ Rutina</div>
-            <div class="desc">Generador de rutinas para potenciar tu juego.</div>
-          </div>
-
-          <div class="tool" role="button" tabindex="0" onclick="abrirPro()">
-            <div class="title">💎 PRO</div>
-            <div class="desc">Mapa de canchas, academias, rutas y manuales avanzados.</div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- Sección explicativa sobre estadísticas / verificación -->
-    <section style="margin-top:18px">
-      <div class="card">
-        <h3>Verificación de estadísticas — importante</h3>
-        <p class="muted">Para evitar perfilar estadísticas falsas, FutbolScope distingue entre:</p>
-        <ul style="margin-top:10px;color:var(--muted)">
-          <li><strong>Estadísticas auto-reportadas:</strong> las pone el jugador (marcadas como NO VERIFICADO).</li>
-          <li><strong>Estadísticas verificadas:</strong> enviadas por entrenadores, clubes o árbitros registrados. Solo las verificadas se usan para rankings y scouts.</li>
-        </ul>
-        <p class="muted" style="margin-top:10px">Solicitar documento del club o confirmación vía correo institucional; permitir uploads de evidencia (acta, video) y control humano de verificación.</p>
+      <div class="card big" id="noticias">
+        <h3>Noticias destacadas</h3>
+        <p id="feed">Últimas noticias sobre veedurías y torneos (área para artículos). Aquí se listarán noticias reales.</p>
       </div>
+
+      <div class="card">
+        <h3 id="rankings">Ranking local</h3>
+        <p>Top jugadores por ciudad y posición</p>
+        <ul id="ranking-list" style="margin-top:8px;color:var(--muted)">
+          <li>#1 — Santiago (Extremo)</li>
+          <li>#2 — Lucas (Delantero)</li>
+          <li>#3 — Mateo (Centrocampista)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 id="guias">Guías rápidas</h3>
+        <p>Entrenamientos, nutrición y tácticas (sección para publicar guías).</p>
+      </div>
+
+      <div class="card" id="herramientas">
+        <h3>Herramientas</h3>
+        <p>Calculadoras y tests rápidos.</p>
+        <div class="tools" role="toolbar" aria-label="herramientas">
+          <!-- botones con estilo que pediste (IMC, Velocidad, Rutina) -->
+          <button class="tool-btn" onclick="abrirIMC()">IMC</button>
+          <button class="tool-btn" onclick="abrirVel()">Velocidad 30m</button>
+          <button class="tool-btn" onclick="abrirRut()">Generador Rutina</button>
+          <button class="tool-btn" onclick="abrirIA()">IA (consultas)</button>
+          <button class="tool-btn" style="background:linear-gradient(90deg,#06d6a0,#00bfa6)" onclick="abrirPro()">PRO</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Verificación y confianza</h3>
+        <p>Para evitar falsos resultados, las estadísticas se muestran en dos niveles:</p>
+        <ol style="color:var(--muted);font-size:14px">
+          <li><strong>Auto-reportadas:</strong> datos que el jugador introduce (se marcan como NO VERIFICADO).</li>
+          <li><strong>Verificadas:</strong> datos que provienen de entrenadores, clubes o árbitros verificados. Estas generan la etiqueta <em>VERIFICADO</em>.</li>
+        </ol>
+        <p style="color:var(--muted)">La verificación exige documento o validación por parte de un club/entrenador con cuenta verificada.</p>
+      </div>
+
+      <div class="card">
+        <h3 id="pro">PRO</h3>
+        <p>Funciones PRO (mapa de canchas, academias, rutas y manuales completos).</p>
+        <p style="color:var(--muted)">Acceso por suscripción o invitación (próximamente)</p>
+      </div>
+
     </section>
 
-    <!-- Footer -->
     <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div>© 2025 FutbolScope — Proyecto en desarrollo. Echo por <strong>Sasssti</strong></div>
-        <div style="color:var(--muted);font-size:14px">Políticas de privacidad • Cookies</div>
+      <div style="max-width:900px;margin:auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div>© 2025 FutbolScope — Términos • Privacidad • Cookies</div>
+        <div style="color:var(--muted)">Hecho por Sasssti</div>
       </div>
     </footer>
   </main>
 
+  <!-- ============ SCRIPTS (explicativos / placeholders) ============ -->
   <script>
-    /* ---------- FUNCIONES BÁSICAS (simuladas) ---------- */
+    // ---- BUSCAR (placeholder) ----
     function buscar(){
-      const q = (document.getElementById('q') || {}).value || '';
-      if(!q.trim()){ alert('Escribe lo que buscas'); return; }
-      // En versión real: llamar a API y mostrar resultados
-      alert('Buscando: ' + q + '\\n(Esto es demo; en versión real hará búsqueda)');
+      const q = document.getElementById('q').value.trim();
+      if(!q){ alert('Escribe lo que buscas'); return; }
+      // Aquí se podría hacer una búsqueda real contra tu servidor o API.
+      alert('Búsqueda (demo): ' + q);
     }
 
-    function abrirLogin(){ alert('Función de login en construcción'); }
-    function abrirRegistro(){ alert('Registro en construcción'); }
+    // ---- LOGIN / REGISTRO / PRO (placeholders) ----
+    function abrirLogin(){ alert('Ventana de inicio de sesión (en desarrollo)'); }
+    function abrirRegistro(){ alert('Registro de usuario (en desarrollo)'); }
+    function abrirPro(){ alert('Función PRO: mapa de canchas y manuales (pendiente)'); }
 
+    // ---- HERRAMIENTAS ----
     function abrirIMC(){
-      const peso = prompt('Ingresa tu peso en kg (ej: 65):');
-      const altura = prompt('Ingresa tu altura en metros (ej: 1.72):');
-      const p = parseFloat(peso), h = parseFloat(altura);
-      if(isNaN(p) || isNaN(h) || p<=0 || h<=0) { alert('Valores inválidos'); return; }
-      const imc = p/(h*h);
+      const peso = prompt('Peso (kg):');
+      const altura = prompt('Altura (m):');
+      const p = parseFloat(peso), a = parseFloat(altura);
+      if(isNaN(p) || isNaN(a) || p<=0 || a<=0){ alert('Valores inválidos'); return; }
+      const imc = p/(a*a);
       alert('Tu IMC: ' + imc.toFixed(2));
     }
-
     function abrirVel(){
-      const tiempo = prompt('Ingresa tu tiempo en segundos para 30m (ej: 4.8):');
-      const t = parseFloat(tiempo);
-      if(isNaN(t) || t<=0){ alert('Valor inválido'); return; }
-      alert('Tu velocidad (30m): ' + t + 's — Consejo: trabaja aceleración y técnica.');
+      alert('Test de velocidad (demo). Mide tu sprint con cronómetro y registra el tiempo.');
     }
-
     function abrirRut(){
-      alert('Generador de rutinas — pronto disponible. Pista: combina velocidad, resistencia y fuerza.');
+      alert('Generador de rutinas (demo). Pronto podrás personalizarlo según posición y objetivos.');
     }
 
-    function abrirPro(){
-      alert('PRO: mapa de canchas y academias — función en desarrollo (requiere integración con mapas).');
+    // ---- IA placeholder ----
+    function abrirIA(){
+      alert('Consultas de IA (demo). Pronto disponible: IA entrenada en fútbol para sugerencias y análisis.');
+      // Implementación real: llamar a una API propia (servidor) que tenga el modelo/seguridad.
     }
 
-    // Animación entrada cards
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.querySelectorAll('.card').forEach((c,i)=>{
-        c.style.opacity = 0;
-        setTimeout(()=>{ c.style.transition='opacity .45s ease, transform .35s ease'; c.style.opacity=1; c.style.transform='translateY(0)'; }, 120*i);
-      });
+    // ---- Verificación: ejemplo de cómo marcar verificado/no verificado ----
+    // En la versión real, estos estados vendrán del servidor.
+    document.getElementById('verify-status').innerText = 'NO VERIFICADO';
+
+    // ---- Animaciones suaves para tarjetas ----
+    document.querySelectorAll('.card').forEach((c,i)=>{
+      c.style.opacity = 0;
+      c.style.transform = 'translateY(8px)';
+      setTimeout(()=>{ c.style.transition='opacity .45s ease, transform .45s ease'; c.style.opacity=1; c.style.transform='translateY(0)'; }, 110*i);
     });
   </script>
 </body>
 </html>
+
