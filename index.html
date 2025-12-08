@@ -1,69 +1,359 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Plataforma</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FutbolScope</title>
+  <meta name="description" content="FutbolScope — estadísticas, guías y herramientas para jugadores jóvenes.">
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary:#2563eb;
-      --primary-light:#3b82f6;
-      --bg:#f4f6fb;
-      --text:#1e293b;
-      --card:#ffffff;
+    :root{
+      --bg-1:#061226;
+      --bg-2:#0b1530;
+      --card:#071124;
+      --muted:#96a5bf;
+      --accent:#ff8f00;
+      --accent-2:#42a5f5;
+      --glass: rgba(255,255,255,0.03);
     }
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
-    body{background:var(--bg);color:var(--text);display:flex;}
-    /* Sidebar */
-    .sidebar{
-      width:250px;background:var(--card);height:100vh;box-shadow:2px 0 10px rgba(0,0,0,.1);padding:20px;position:fixed;}
-    .logo{font-size:24px;font-weight:bold;color:var(--primary);margin-bottom:20px;text-align:center;}
-    .nav a{display:block;padding:12px;border-radius:12px;margin:6px 0;text-decoration:none;color:var(--text);transition:.2s;}
-    .nav a:hover{background:var(--primary-light);color:white;}
-    /* Main */
-    .main{margin-left:270px;padding:25px;width:100%;}
-    .search-bar{display:flex;gap:10px;margin-bottom:20px;}
-    .search-bar input{flex:1;padding:12px;border-radius:12px;border:1px solid #ccc;}
-    .search-bar button{padding:12px 20px;border:none;border-radius:12px;background:var(--primary);color:white;cursor:pointer;transition:.2s;}
-    .search-bar button:hover{background:var(--primary-light);}    
-    /* Cards */
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
-    .card{background:var(--card);padding:20px;border-radius:16px;box-shadow:0 4px 10px rgba(0,0,0,.08);}    
-    .card h3{margin-bottom:10px;color:var(--primary);}    
-    footer{margin-top:40px;padding:20px;text-align:center;font-size:14px;color:#64748b;}    
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(135deg,var(--bg-1) 0%,var(--bg-2) 100%);
+      color: #e6eef8;
+      display:flex;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    /* SIDEBAR */
+    aside.sidebar{
+      width:240px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:22px;
+      position:fixed;
+      left:0;top:0;bottom:0;
+      border-right:1px solid rgba(255,255,255,0.03);
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      z-index:50;
+    }
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo-circle{
+      width:52px;height:52px;border-radius:12px;
+      background: linear-gradient(135deg,var(--accent-2),var(--accent));
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+    .brand h2{font-size:18px}
+    .brand small{display:block;color:var(--muted);font-size:12px}
+
+    nav.main-nav{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+    nav.main-nav a{
+      display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;color:#cfe8ff;
+      text-decoration:none;font-weight:600; transition: all .18s ease;
+    }
+    nav.main-nav a:hover{background: rgba(255,255,255,0.03); color:white; transform: translateX(6px);}
+
+    /* MAIN */
+    main.app{
+      margin-left:260px; /* espacio para sidebar */
+      padding:28px 34px;
+      width:100%;
+    }
+
+    .topbar{display:flex;gap:18px;align-items:center;justify-content:space-between; margin-bottom:18px}
+    .search{
+      display:flex;gap:10px;background:var(--card);padding:8px;border-radius:12px;align-items:center;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+    .search input{
+      background:transparent;border:none;color:inherit;padding:10px 12px;outline:none;width:480px;
+    }
+    .search button{background:var(--accent-2);border:none;padding:10px 14px;border-radius:10px;color:white;font-weight:700;cursor:pointer}
+
+    .actions{display:flex;gap:12px;align-items:center}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:9px 12px;border-radius:10px;color:inherit;cursor:pointer}
+    .btn-primary{background:var(--accent);padding:10px 14px;border-radius:10px;border:none;color:white;font-weight:700;cursor:pointer}
+
+    /* HERO */
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:26px;border-radius:14px;display:flex;gap:20px;align-items:center}
+    .hero-left h1{font-size:30px;margin-bottom:6px}
+    .hero-left p{color:var(--muted)}
+    .hero-tags{margin-top:12px;display:flex;gap:10px}
+    .tag{padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:999px;color:var(--accent-2);font-weight:700}
+
+    .hero-right{min-width:220px;background:rgba(0,0,0,0.18);padding:18px;border-radius:12px;text-align:center}
+    .hero-right .stat{font-size:20px;font-weight:800;margin-top:8px}
+
+    /* GRID */
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px}
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .card{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .card h3{color:#fff;margin-bottom:8px}
+    .muted{color:var(--muted);font-size:14px}
+    .list-compact{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.5}
+
+    /* RANKING */
+    .ranking li{padding:8px 10px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center}
+
+    /* FOOTER */
+    footer.site-footer{margin-top:24px;color:var(--muted);font-size:13px;text-align:center;padding:18px 6px}
+
+    /* MODAL / PRIVACY / COOKIES */
+    .cookie-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--card);padding:10px 14px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.5);display:flex;gap:12px;align-items:center;z-index:80}
+    .cookie-bar button{padding:8px 10px;border-radius:8px;border:none;cursor:pointer}
+    .cookie-bar .accept{background:var(--accent);color:white}
+
+    /* AI WIDGET (placeholder) */
+    .ai-widget{position:fixed;right:22px;bottom:22px;background:linear-gradient(180deg, #0b2238, #06162a);padding:12px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,0.6);z-index:90;width:320px}
+    .ai-widget textarea{width:100%;resize:none;border-radius:8px;padding:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
+    .ai-widget button{margin-top:8px;padding:8px 10px;border-radius:8px;border:none;background:var(--accent-2);color:white;cursor:pointer}
+
+    /* responsiveness */
+    @media (max-width:920px){
+      aside.sidebar{display:none}
+      main.app{margin-left:16px;padding:18px}
+      .grid{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      .search input{width:180px}
+    }
+
+    /* subtle motion */
+    .card, .hero{transform:translateY(0);transition:all .22s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(2,6,23,0.6)}
   </style>
 </head>
 <body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" role="navigation" aria-label="Menú principal">
+    <div class="brand">
+      <!-- si subes logo.png, se usa en lugar de FS -->
+      <div class="logo-circle" id="logo-img">FS</div>
+      <div>
+        <h2>FutbolScope</h2>
+        <small>Estadísticas • Talento • Ranking</small>
+      </div>
+    </div>
 
-  <aside class="sidebar">
-    <div class="logo">LOGO</div>
-    <nav class="nav">
-      <a href="#">Inicio</a>
-      <a href="#">Noticias</a>
-      <a href="#">Rankings</a>
-      <a href="#">Guías</a>
-      <a href="#">Cuenta</a>
-      <a href="#">Ajustes</a>
+    <nav class="main-nav" aria-label="navegación secundaria">
+      <a href="#inicio">🏠 Inicio</a>
+      <a href="#noticias">📰 Noticias</a>
+      <a href="#rankings">📈 Rankings</a>
+      <a href="#guias">📚 Guías</a>
+      <a href="#herramientas">🛠 Herramientas</a>
+      <a href="#contacto">📞 Contacto</a>
     </nav>
+
+    <div style="margin-top:auto;font-size:13px;color:var(--muted)">
+      © 2025 — <strong>Echo por Sasssti</strong>
+    </div>
   </aside>
 
-  <main class="main">
-    <div class="search-bar">
-      <input type="text" placeholder="Buscar..." />
-      <button>🔍</button>
+  <!-- MAIN -->
+  <main class="app" role="main">
+    <div class="topbar">
+      <div class="search" role="search" aria-label="Buscar">
+        <input id="q" placeholder="Buscar jugadores, ligas, artículos..." aria-label="Buscar"/>
+        <button onclick="buscar()">🔍</button>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" onclick="abrirLogin()">Iniciar sesión</button>
+        <button class="btn-primary" onclick="abrirRegistro()">Registrarse</button>
+      </div>
     </div>
+
+    <section class="hero" id="inicio" aria-label="Hero">
+      <div class="hero-left">
+        <h1>Tu evolución futbolística empieza aquí</h1>
+        <p>Registra tus números, compara tu rendimiento y prepárate para destacar en veedurías.</p>
+        <div class="hero-tags">
+          <span class="tag">Calculadoras</span>
+          <span class="tag">Guías</span>
+          <span class="tag">Rankings</span>
+        </div>
+      </div>
+      <div class="hero-right" aria-hidden="false">
+        <div style="font-weight:700">Estadísticas rápidas</div>
+        <div class="stat">Goles: <strong id="goles-count">0</strong> • Asistencias: <strong id="asis-count">0</strong></div>
+      </div>
+    </section>
 
     <div class="grid">
-      <div class="card"><h3>Noticias</h3><p>Últimas novedades y comunicados importantes.</p></div>
-      <div class="card"><h3>Ranking</h3><p>Mira quiénes están en la cima.</p></div>
-      <div class="card"><h3>Guías</h3><p>Consejos, tutoriales y rutas optimizadas.</p></div>
-      <div class="card"><h3>Sugerencias</h3><p>Contenido recomendado para ti.</p></div>
+      <div>
+        <!-- Noticias / Feed -->
+        <div class="card big">
+          <h3 id="noticias">Noticias destacadas</h3>
+          <p id="feed" class="muted">Últimas noticias sobre veedurías, torneos y consejos para jugadores juveniles.</p>
+        </div>
+
+        <!-- Cards dobles -->
+        <div class="cards" style="margin-top:14px">
+          <div class="card">
+            <h3 id="guias">Guías rápidas</h3>
+            <p class="muted">Entrenamientos, nutrición y rutinas pensadas para jóvenes futbolistas.</p>
+            <ul class="list-compact">
+              <li>Calentamiento para velocidad — 10 min</li>
+              <li>Ejercicios de cambio de ritmo — 3 series</li>
+              <li>Recuperación y estiramiento — 12 min</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 id="herramientas">Herramientas</h3>
+            <p class="muted">Calculadoras prácticas y tests.</p>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+              <button class="pill" onclick="abrirIMC()">IMC</button>
+              <button class="pill" onclick="abrirVel()">Vel 30m</button>
+              <button class="pill" onclick="abrirRut()">Generador</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big footer area -->
+        <div class="card" style="margin-top:14px">
+          <h3 id="rankings">Ranking local</h3>
+          <p class="muted">Top jugadores por ciudad y posición</p>
+          <ul class="ranking" id="ranking-list" style="margin-top:10px">
+            <li><span>#1 — Santiago (Extremo)</span><span class="muted">Pts 95</span></li>
+            <li><span>#2 — Lucas (Delantero)</span><span class="muted">Pts 89</span></li>
+            <li><span>#3 — Mateo (Centrocampista)</span><span class="muted">Pts 85</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <aside>
+        <!-- Side widgets -->
+        <div class="card" style="margin-bottom:14px">
+          <h3>Buscar veedurías</h3>
+          <p class="muted">Fechas, requisitos y lugares de próximas pruebas.</p>
+        </div>
+
+        <div class="card" style="margin-bottom:14px">
+          <h3>Top consejos</h3>
+          <p class="muted">Mejora tu control con 3 ejercicios diarios.</p>
+        </div>
+
+        <div class="card">
+          <h3>Suscríbete</h3>
+          <p class="muted">Recibe nuevas guías y avisos de veedurías por correo.</p>
+          <input id="email-sub" placeholder="tu@correo.com" style="margin-top:8px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;width:100%">
+          <button class="btn-ghost" style="margin-top:8px" onclick="suscribir()">Suscribirme</button>
+        </div>
+      </aside>
     </div>
 
-    <footer>
-      © 2025 Mi Plataforma — Términos, privacidad, cookies
+    <footer class="site-footer">
+      <div style="max-width:900px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <div><strong>FutbolScope</strong> — Términos • Privacidad • Cookies</div>
+        <div class="muted">Echo por <strong>Sasssti</strong></div>
+      </div>
     </footer>
   </main>
 
+  <!-- COOKIE BAR -->
+  <div id="cookieBar" class="cookie-bar" role="dialog" aria-live="polite">
+    <div style="font-size:14px;color:var(--muted)">Usamos cookies para mejorar la experiencia. ¿Aceptas cookies analíticas?</div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="rechazarCookies()" class="btn-ghost">Rechazar</button>
+      <button onclick="aceptarCookies()" class="accept">Aceptar</button>
+    </div>
+  </div>
+
+  <!-- AI WIDGET (placeholder; puedes conectar tu modelo aquí) -->
+  <div class="ai-widget" role="complementary" aria-label="Asistente IA">
+    <div style="font-weight:700;margin-bottom:6px">Asistente FutbolScope</div>
+    <textarea id="iaInput" rows="4" placeholder="Pregunta sobre entrenamiento, estadísticas o veedurías..."></textarea>
+    <button onclick="consultaIA()">Enviar a la IA</button>
+    <div id="iaResp" style="margin-top:8px;color:var(--muted);font-size:14px"></div>
+  </div>
+
+  <script>
+    /* ============================
+       CAMBIOS AUTOMÁTICOS DEL LOGO
+       Si subes un archivo logo.png en la raíz del repo, el script reemplaza el FS por la imagen.
+       ============================ */
+    (function(){
+      const logoEl = document.getElementById('logo-img');
+      // intentar cargar logo.png (relativo)
+      const img = new Image();
+      img.src = 'logo.png';
+      img.onload = ()=> {
+        logoEl.style.background = 'transparent';
+        logoEl.innerHTML = '';
+        img.style.width = '48px';
+        img.style.height = '48px';
+        img.style.borderRadius = '8px';
+        logoEl.appendChild(img);
+      };
+      img.onerror = ()=> { /* si no existe, deja FS */ }
+    })();
+
+    /* ============================
+       FUNCIONES BÁSICAS DEL SITIO (Demo)
+       ============================ */
+    function buscar(){
+      const q = document.getElementById('q').value.trim();
+      if(!q) { alert('Escribe lo que buscas'); return; }
+      // demo: buscar en feed (aquí ampliarás con backend)
+      document.getElementById('feed').innerText = 'Resultados para: ' + q + ' (demo)';
+    }
+
+    function abrirLogin(){ alert('Función de login en construcción'); }
+    function abrirRegistro(){ alert('Registro en construcción'); }
+    function abrirIMC(){ alert('Calculadora IMC — pronto disponible'); }
+    function abrirVel(){ alert('Test velocidad — pronto disponible'); }
+    function abrirRut(){ alert('Generador de rutinas — pronto disponible'); }
+    function suscribir(){
+      const email = document.getElementById('email-sub').value.trim();
+      if(!email || !email.includes('@')) { alert('Ingresa un correo válido'); return; }
+      alert('Gracias — te hemos agregado en demo: ' + email);
+    }
+
+    /* ============================
+       COOKIES (básico): guarda consentimiento en localStorage
+       ============================ */
+    function aceptarCookies(){
+      localStorage.setItem('fs_cookies', 'accept');
+      document.getElementById('cookieBar').style.display = 'none';
+    }
+    function rechazarCookies(){
+      localStorage.setItem('fs_cookies','reject');
+      document.getElementById('cookieBar').style.display = 'none';
+    }
+    (function(){
+      const val = localStorage.getItem('fs_cookies');
+      if(val==='accept' || val==='reject') document.getElementById('cookieBar').style.display='none';
+    })();
+
+    /* ============================
+       WIDGET IA (placeholder) - cómo integrarlo luego:
+       - Reemplaza la función 'consultaIA' por una llamada fetch() a tu API de IA.
+       - En servidores: mantén la API key en el servidor (no en el front).
+       - Aquí mostramos una respuesta simulada mientras no haya integración.
+       ============================ */
+    async function consultaIA(){
+      const q = document.getElementById('iaInput').value.trim();
+      if(!q) { alert('Escribe tu pregunta a la IA'); return; }
+      const respEl = document.getElementById('iaResp');
+      respEl.innerText = 'Consultando IA...';
+      // Demo: respuesta simulada (reemplaza con fetch a tu API de IA)
+      await new Promise(r=>setTimeout(r,800));
+      // ejemplo de respuesta simulada basada en la pregunta
+      respEl.innerText = 'IA (demo): Para mejorar velocidad trabaja pliometría 2x por semana, series de 30m max velocidad y técnica de salida. (Si quieres la integración real, te explico cómo conectar una API de IA).';
+    }
+
+    /* ============================
+       Pequeñas animaciones de entrada
+       ============================ */
+    document.querySelectorAll('.card').forEach((c,i)=>{
+      c.style.opacity=0;
+      c.style.transform='translateY(6px)';
+      setTimeout(()=>{ c.style.transition='opacity .45s ease, transform .45s cubic-bezier(.2,.9,.2,1)'; c.style.opacity=1; c.style.transform='translateY(0)'; }, 120*i);
+    });
+  </script>
 </body>
 </html>
