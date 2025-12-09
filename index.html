@@ -3,374 +3,310 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FutbolScope — Rankings & Herramientas</title>
+  <title>FutbolScope — Noticias y recursos para jugadores</title>
 
-  <!-- Tipografía -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Tipos -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <meta name="description" content="FutbolScope — Estadísticas, rankings y herramientas para jugadores y equipos.">
 
   <style>
     :root{
-      --bg1: #061226;
-      --bg2: #0b1530;
-      --card: rgba(255,255,255,0.03);
-      --glass: rgba(255,255,255,0.04);
-      --accent: #ff8f00;
-      --accent-2: #1e88e5;
-      --muted: #9fb3cc;
-      --white: #e7f0fb;
+      --bg-1:#04122a;
+      --bg-2:#072548;
+      --accent:#1e90ff;
+      --accent-2:#ff8f00;
+      --card:#071a2c;
+      --muted: #96a2b8;
+      --glass: rgba(255,255,255,0.03);
     }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Poppins",system-ui,Arial,sans-serif;
-      background: linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:var(--white);
-      -webkit-font-smoothing:antialiased;
-      display:flex;
-      min-height:100vh;
-    }
-
-    /* SIDEBAR */
+    html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg-1),#061a33);color:#e9f2ff;}
+    a{color:inherit;text-decoration:none}
+    /* Layout */
     .sidebar{
-      width:240px;
-      padding:20px;
-      position:fixed;
-      left:0;top:0;bottom:0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-right: 1px solid rgba(255,255,255,0.03);
+      position:fixed;left:0;top:0;bottom:0;width:240px;background:linear-gradient(180deg,#071428,#071a2c);border-right:1px solid rgba(255,255,255,0.03);
+      padding:22px 16px;display:flex;flex-direction:column;gap:18px;
     }
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom:18px;
-    }
-    .logo-circle{
-      width:56px;height:56px;border-radius:10px;
-      background: linear-gradient(135deg,var(--accent-2), #42a5f5);
-      display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:18px;
-      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-    }
-    .brand h1{font-size:18px;margin:0}
-    .brand p{margin:0;margin-top:4px;font-size:12px;color:var(--muted)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo-box{width:52px;height:52px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#2aa3ff);box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+    .logo-box img{width:46px;height:46px;object-fit:contain;display:block}
+    .brand h1{font-size:18px;margin:0;font-weight:700}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
 
-    .nav{margin-top:18px;display:flex;flex-direction:column;gap:8px}
-    .nav a{
-      display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;
-      color:var(--white);text-decoration:none;font-weight:600;font-size:14px;
-      transition:all .18s ease;
-    }
-    .nav a:hover{transform:translateX(6px);background:var(--card)}
+    .nav{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+    .nav a{padding:10px 12px;border-radius:10px;color:#bfe7ff;font-weight:600;display:flex;align-items:center;gap:10px}
+    .nav a:hover{background:rgba(255,255,255,0.02);transform:translateX(6px);}
 
-    /* MAIN */
-    main{flex:1;margin-left:240px;padding:28px;min-height:100vh}
+    /* Main + right */
+    .main-wrap{margin-left:240px;display:flex;gap:22px;padding:22px;min-height:100vh}
+    main{flex:1;min-width:0}
+    aside.right{width:320px;max-width:35%;min-width:260px}
 
-    /* TOPBAR */
-    .topbar{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
-    .search{flex:1;display:flex;gap:10px;align-items:center}
-    .search input{
-      width:100%;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);
-      background:transparent;color:var(--white);outline:none;font-size:14px;
-    }
-    .btn{
-      padding:10px 14px;border-radius:12px;border:none;background:var(--accent-2);color:white;font-weight:700;cursor:pointer;
-      box-shadow: 0 6px 18px rgba(2,6,23,0.45);
-    }
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white)}
-    .btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.03);color:var(--muted)}
+    /* Topbar */
+    .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .search{flex:1;display:flex;gap:10px}
+    .search input{flex:1;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#eaf7ff;outline:none}
+    .search button{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer}
 
-    /* HERO (cerrable) */
-    .hero{display:flex;justify-content:space-between;align-items:center;padding:26px;border-radius:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));margin-bottom:18px}
+    .actions{display:flex;gap:10px}
+    .btn{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#eaf7ff;font-weight:600;cursor:pointer}
+    .btn.primary{background:var(--accent);border:none}
+
+    /* Hero / foco */
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:22px;border-radius:14px;display:flex;gap:20px;align-items:center}
     .hero-left h2{margin:0;font-size:26px}
-    .hero-left p{color:var(--muted);margin:8px 0 0}
-    .hero-right{min-width:220px;padding:12px;border-radius:10px;background:rgba(0,0,0,0.18);text-align:center}
-    .hero-close{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:6px;border-radius:8px}
+    .hero-left p{margin:6px 0;color:var(--muted)}
+    .chips{display:flex;gap:10px;margin-top:12px}
+    .chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--accent);font-weight:700}
 
-    /* LAYOUT */
-    .grid{
-      display:grid;
-      grid-template-columns: 2fr 1fr;
-      gap:18px;
-      align-items:start;
-    }
-
-    /* CARDS */
-    .card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-    .card h3{margin:0 0 8px;color:var(--white);font-size:18px}
+    /* Content grid */
+    .grid{display:grid;grid-template-columns: 1fr 360px; gap:18px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 8px 0}
     .muted{color:var(--muted);font-size:14px}
 
-    /* TOOLS area — keep buttons inside tools*/
-    .tools-grid{display:flex;gap:12px;flex-wrap:wrap}
-    .tool-btn{
-      padding:10px 14px;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,0.06);
-      color:var(--white);font-weight:700;cursor:pointer;transition:all .18s ease;
-    }
-    .tool-btn:hover{transform:translateY(-4px);background:rgba(255,255,255,0.02)}
+    /* Right widgets more compact */
+    .widget{margin-bottom:12px}
+    .small-list{list-style:none;padding:0;margin:6px 0 0 0}
+    .small-list li{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px;font-weight:600;color:#eaf7ff}
 
-    /* RANKINGS & FILTERS */
-    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-    .filters select, .filters input{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left;color:var(--white)}
-    th{background:transparent;color:var(--muted);font-weight:700}
+    /* Tools area (only within tools card) */
+    .tools-grid{display:flex;flex-wrap:wrap;gap:10px}
+    .tool-btn{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);color:#eaf7ff;font-weight:700;cursor:pointer}
+    .tool-btn:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
 
-    /* PRO box */
-    .pro-box{margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(34,197,94,0.06), rgba(249,115,22,0.04));border:1px solid rgba(255,255,255,0.03)}
-    .map-placeholder{height:200px;border-radius:8px;background:linear-gradient(135deg,#07243f,#0a2b4a);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+    /* Small footer */
+    footer{margin-top:18px;color:var(--muted);font-size:13px;padding:18px;text-align:center;background:transparent;border-radius:8px}
 
-    /* FOOTER */
-    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center;padding:12px}
-
-    /* responsive */
-    @media (max-width:980px){
+    /* Responsive */
+    @media (max-width:1000px){
+      aside.right{display:none}
       .grid{grid-template-columns:1fr}
-      main{padding:18px}
+      .main-wrap{flex-direction:column;margin-left:0}
+      .sidebar{position:relative;width:100%;display:flex;flex-direction:row;align-items:center;gap:12px;padding:10px}
+      .brand h1{display:none}
+      .main-wrap{padding:12px}
     }
   </style>
 </head>
 <body>
+
   <!-- SIDEBAR -->
-  <aside class="sidebar" aria-label="Menú lateral">
-    <div class="brand">
-      <div class="logo-circle"><img src="logo.png" alt="FS" style="width:36px;height:36px;object-fit:contain"></div>
+  <aside class="sidebar" aria-label="navegación principal">
+    <div class="brand" role="banner">
+      <div class="logo-box">
+        <!-- logo.png debe estar en la misma carpeta que index.html -->
+        <img src="logo.png" alt="FutbolScope logo">
+      </div>
       <div>
-        <h1 style="font-size:16px;margin-bottom:4px">FutbolScope</h1>
-        <p style="margin:0">Estadísticas • Talento • Rankings</p>
+        <h1>FutbolScope</h1>
+        <p>Estadísticas • Noticias • Guías</p>
       </div>
     </div>
 
-    <nav class="nav" role="navigation" aria-label="navegación principal">
+    <nav class="nav" role="navigation" aria-label="menú">
       <a href="#inicio">🏠 Inicio</a>
-      <a href="#rankings" id="link-rank">📈 Rankings</a>
-      <a href="#herramientas" id="link-tools">🛠 Herramientas</a>
-      <a href="#pro" id="link-pro">⭐ Pro</a>
+      <a href="#noticias">📰 Noticias</a>
+      <a href="#guias">📚 Guías</a>
+      <a href="#herramientas">🛠 Herramientas</a>
+      <a href="#rankings">📈 Rankings</a>
+      <a href="#pro">⭐ Pro</a>
       <a href="#contacto">📞 Contacto</a>
+      <a href="#ajustes">⚙️ Ajustes</a>
     </nav>
 
-    <div style="position:absolute;bottom:18px;left:20px;right:20px;font-size:13px;color:var(--muted)">
-      © 2025 FutbolScope — Términos • Privacidad • Cookies
+    <div style="margin-top:auto;font-size:13px;color:var(--muted)">
+      Hecho por Sasssti
     </div>
   </aside>
 
-  <!-- MAIN -->
-  <main>
-    <!-- TOPBAR -->
-    <div class="topbar" role="region" aria-label="barra superior">
-      <div class="search" role="search">
-        <input id="search-input" placeholder="Buscar jugadores, ligas o equipos..." aria-label="Buscar">
-        <button class="btn" onclick="onBuscar()">🔍 Buscar</button>
-      </div>
-
-      <div style="display:flex;gap:10px;align-items:center">
-        <button class="btn secondary" onclick="abrirLogin()">Iniciar sesión</button>
-        <button class="btn ghost" onclick="abrirRegistro()">Registrarse</button>
-      </div>
-    </div>
-
-    <!-- HERO (cerrable) -->
-    <section class="hero" id="hero">
-      <div class="hero-left">
-        <h2>Tu evolución futbolística empieza aquí</h2>
-        <p class="muted">Registra tus números, compite en rankings y mejora con guías profesionales.</p>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <div class="hero-right">
-          <div style="font-weight:700">Resumen rápido</div>
-          <div style="margin-top:8px;color:var(--muted);font-size:14px">Estadísticas: <span id="quick-stats">No registrado</span></div>
+  <!-- CONTENIDO PRINCIPAL + RIGHT -->
+  <div class="main-wrap">
+    <main>
+      <!-- TOP BAR -->
+      <div class="topbar">
+        <div class="search">
+          <input id="q" placeholder="Buscar noticias, ligas, jugadores..." aria-label="buscar">
+          <button onclick="buscar()">🔍 Buscar</button>
         </div>
-        <button class="hero-close" aria-label="Cerrar anuncio" onclick="document.getElementById('hero').style.display='none'">✕</button>
-      </div>
-    </section>
 
-    <div class="grid">
-      <!-- LEFT: contenido principal -->
-      <div>
-        <!-- HERRAMIENTAS (botones dentro de esta sección) -->
-        <section class="card" id="herramientas" aria-labelledby="herramientas-title">
-          <h3 id="herramientas-title">Herramientas</h3>
-          <p class="muted">Utiliza nuestras utilidades gratuitas. Las funciones Pro aparecen al final.</p>
-
-          <div class="tools-grid" style="margin-top:12px">
-            <!-- KEEP tool buttons here only -->
-            <button class="tool-btn" onclick="abrirIMC()">IMC</button>
-            <button class="tool-btn" onclick="abrirVel()">Velocidad 30m</button>
-            <button class="tool-btn" onclick="abrirRut()">Generador de rutinas</button>
-            <button class="tool-btn" onclick="abrirIA()">IA (Asistente)</button>
-            <button class="tool-btn" style="background:linear-gradient(90deg,var(--accent),#ffb04d);border:none;color:#062034" onclick="abrirPro()">PRO</button>
-          </div>
-
-          <div class="pro-box" style="margin-top:14px">
-            <strong>Funciones Pro:</strong>
-            <p class="muted" style="margin:6px 0">Mapas de canchas, academias y rutas personalizadas — disponible en PRO.</p>
-            <div class="map-placeholder" id="map-pro">Mapa de canchas (PRO)</div>
-          </div>
-        </section>
-
-        <!-- RANKINGS (jugadores) -->
-        <section class="card" id="rankings" style="margin-top:18px">
-          <h3>Rankings — Jugadores</h3>
-          <div class="filters" style="margin-top:12px">
-            <select id="f-pos"><option value="">Posición</option><option value="portero">Portero</option><option value="defensa">Defensa</option><option value="medio">Mediocampista</option><option value="delantero">Delantero</option></select>
-            <select id="f-liga"><option value="">Liga</option><option value="sub13">Sub-13</option><option value="sub15">Sub-15</option><option value="sub17">Sub-17</option><option value="sub20">Sub-20</option></select>
-            <select id="f-zona"><option value="">Zona</option><option value="bogota">Bogotá</option><option value="cundinamarca">Cundinamarca</option><option value="meta">Meta</option><option value="valle">Valle</option></select>
-            <input id="f-text" placeholder="Buscar por nombre o equipo" style="padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white)">
-            <button class="btn" onclick="filtrarJugadores()">Aplicar</button>
-          </div>
-
-          <table aria-label="Tabla de jugadores">
-            <thead>
-              <tr><th>#</th><th>Jugador</th><th>Posición</th><th>Equipo</th><th>Rating</th></tr>
-            </thead>
-            <tbody id="tabla-jugadores">
-              <!-- contenido inyectado por JS -->
-            </tbody>
-          </table>
-        </section>
+        <div class="actions">
+          <button class="btn" onclick="abrirRegistro()">Registrarse</button>
+          <button class="btn primary" onclick="abrirLogin()">Iniciar sesión</button>
+        </div>
       </div>
 
-      <!-- RIGHT: rankings equipos + guías -->
-      <aside>
-        <section class="card">
-          <h3>Rankings — Equipos</h3>
-          <div style="margin-top:10px" class="muted">Filtra y descubre los equipos mejor posicionados en tu zona.</div>
-          <div style="margin-top:10px">
-            <select id="team-zona" style="width:100%;padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white)">
-              <option value="">Todas las zonas</option><option value="bogota">Bogotá</option><option value="meta">Meta</option>
-            </select>
-            <table style="margin-top:10px">
-              <thead><tr><th>#</th><th>Equipo</th><th>Zona</th><th>Pts</th></tr></thead>
-              <tbody id="tabla-equipos">
-                <!-- JS inject -->
-              </tbody>
-            </table>
+      <!-- HERO / FOCO -->
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-left">
+          <h2 id="hero-title">Últimas noticias y veedurías para jugadores juveniles</h2>
+          <p class="muted">Encuentra convocatorias, guías de entrenamiento, y recursos para mejorar tu rendimiento.</p>
+
+          <div class="chips" aria-hidden="true">
+            <span class="chip">Entrenamientos</span>
+            <span class="chip">Veedurías</span>
+            <span class="chip">Preparación física</span>
           </div>
-        </section>
+        </div>
 
-        <section class="card" style="margin-top:16px">
-          <h3>Guías rápidas</h3>
-          <p class="muted">Entrenamientos, nutrición y preparación para veedurías.</p>
-          <ul style="margin-top:10px;color:var(--muted);line-height:1.6">
-            <li>Calentamiento dinámico (10 min)</li>
-            <li>Ejercicios de velocidad y cambio de ritmo</li>
-            <li>Plan semanal de resistencia</li>
-          </ul>
-        </section>
+        <div class="hero-right" aria-hidden="true" style="min-width:220px;background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,0.03)">
+          <div style="font-weight:800;font-size:18px">Estado del jugador</div>
+          <div id="player-summary" style="margin-top:8px;color:var(--muted)">No registrado</div>
+        </div>
+      </section>
 
-        <section class="card" style="margin-top:16px">
-          <h3>Contacto</h3>
-          <p class="muted">¿Quieres colaborar o anunciar en FutbolScope? Contáctanos.</p>
-          <button class="btn" style="margin-top:10px" onclick="contactar()">Contactar</button>
-        </section>
-      </aside>
+      <!-- GRID PRINCIPAL: Noticias + Tools (a la izquierda) -->
+      <section class="grid" aria-live="polite">
+        <!-- Left: Noticias / Guías -->
+        <div>
+          <article class="card" id="noticias">
+            <h3>Noticias de veedurías</h3>
+            <p class="muted">Últimas convocatorias y torneos. Mantente atento a las fechas y requisitos.</p>
+            <ul id="news-list" style="margin-top:12px;color:#eaf7ff">
+              <!-- items de noticias (ejemplo) -->
+              <li style="margin-bottom:8px"><strong>Veeduría Sub-17 - La Esperanza</strong> — 12 dic — Requisitos: camiseta, DNI</li>
+              <li style="margin-bottom:8px"><strong>Torneo Juvenil - Villavicencio</strong> — 20 dic — Inscripciones abiertas</li>
+              <li style="margin-bottom:8px"><strong>Convocatoria Sub-15 - Llaneros</strong> — 02 dic — Se buscarán extremos rápidos</li>
+            </ul>
+          </article>
+
+          <article class="card" id="guias" style="margin-top:14px">
+            <h3>Guías y entrenamientos</h3>
+            <p class="muted">Rutinas prácticas para velocidad, resistencia y técnica. Recursos gratuitos y paso a paso.</p>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+              <button class="tool-btn" onclick="abrirGuia('velocidad')">Velocidad (guía)</button>
+              <button class="tool-btn" onclick="abrirGuia('tecnica')">Técnica de control</button>
+              <button class="tool-btn" onclick="abrirGuia('resistencia')">Resistencia</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Right: Rankings (pequeño) y Widgets -->
+        <aside class="right" aria-label="widgets">
+          <div class="card widget" style="margin-bottom:14px">
+            <h3 id="rankings">Rankings (puedes filtrar en la página de rankings)</h3>
+            <p class="muted">Top jugadores verificados — vista rápida</p>
+            <ul class="small-list" id="mini-ranking">
+              <li>#1 — No registrado</li>
+              <li>#2 — No registrado</li>
+              <li>#3 — No registrado</li>
+            </ul>
+            <div style="margin-top:10px;text-align:right">
+              <a href="#rankings" class="btn">Ver todos</a>
+            </div>
+          </div>
+
+          <div class="card widget">
+            <h3>Pro (herramientas avanzadas)</h3>
+            <p class="muted">Funciones Pro: mapa de canchas, academias, análisis avanzado (requiere cuenta Pro).</p>
+            <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+              <button class="tool-btn" onclick="abrirPro()">Ir a Pro</button>
+            </div>
+          </div>
+
+          <div class="card widget">
+            <h3>Enlaces útiles</h3>
+            <p class="muted">Accesos rápidos</p>
+            <ul style="margin-top:8px;color:#eaf7ff;list-style:none;padding:0">
+              <li style="margin-bottom:8px"><a href="#guias">Guías rápidas</a></li>
+              <li style="margin-bottom:8px"><a href="#herramientas">Herramientas</a></li>
+              <li style="margin-bottom:8px"><a href="#contacto">Contacto</a></li>
+            </ul>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        <div style="max-width:1000px;margin:auto">
+          FutbolScope — Términos • Privacidad • Cookies
+        </div>
+      </footer>
+    </main>
+
+    <!-- RIGHT (movido a la derecha solo en escritorio) -->
+  </div>
+
+  <!-- MODALES SIMPLES (login / registro) -->
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:999">
+    <div style="background:linear-gradient(180deg,#081525,#0f2b46);padding:20px;border-radius:12px;max-width:420px;width:92%;box-shadow:0 20px 60px rgba(0,0,0,0.6);color:#eaf7ff">
+      <h3 id="modal-title">Iniciar sesión</h3>
+      <p id="modal-msg" style="color:var(--muted);margin-top:6px">Accede para ver tus estadísticas y herramientas.</p>
+
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+        <input id="u_name" placeholder="Nombre" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:#eaf7ff;">
+        <input id="u_email" placeholder="Email (ejemplo@correo.com)" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:#eaf7ff;">
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button class="btn" onclick="cerrarModal()">Cancelar</button>
+          <button class="btn primary" onclick="guardarUsuario()">Guardar</button>
+        </div>
+      </div>
     </div>
-
-    <footer>FutbolScope • © 2025 • Hecho por Sasssti</footer>
-  </main>
+  </div>
 
   <script>
-    /* ===== Simulación de estado de usuario =====
-       isRegistered: si es false, las estadísticas aparecen "No registrado"
-       (en la versión real se conectará al backend para controlar esto)
-    */
-    let isRegistered = false; // cambia a true cuando haya login real
-    const mockPlayers = [
-      {id:1,name:'Santiago',pos:'delantero',team:'Escuela X',rating:92,zona:'bogota',liga:'sub17'},
-      {id:2,name:'Lucas',pos:'medio',team:'Academia Y',rating:89,zona:'valle',liga:'sub17'},
-      {id:3,name:'Mateo',pos:'defensa',team:'Club Z',rating:87,zona:'meta',liga:'sub15'},
-      {id:4,name:'Andrés',pos:'delantero',team:'Escuela X',rating:85,zona:'bogota',liga:'sub15'}
-    ];
-    const mockTeams = [
-      {id:1,team:'Escuela X',zona:'bogota',pts:38},
-      {id:2,team:'Academia Y',zona:'valle',pts:34},
-      {id:3,team:'Club Z',zona:'meta',pts:30}
-    ];
-
-    // Iniciar tablas con datos (si no registrado, mostramos "No registrado" en resumen)
-    function renderQuickStats(){
-      document.getElementById('quick-stats').innerText = isRegistered ? 'Goles: 0 • Asistencias: 0' : 'No registrado';
+    // ---------- UTILIDADES ----------
+    function abrirLogin(){
+      document.getElementById('modal-title').innerText = 'Iniciar sesión';
+      document.getElementById('modal-msg').innerText = 'Accede para ver tus estadísticas y herramientas.';
+      document.getElementById('modal').style.display = 'flex';
+    }
+    function abrirRegistro(){
+      document.getElementById('modal-title').innerText = 'Registrarse';
+      document.getElementById('modal-msg').innerText = 'Regístrate para obtener un perfil y estadísticas verificables.';
+      document.getElementById('modal').style.display = 'flex';
+    }
+    function cerrarModal(){
+      document.getElementById('modal').style.display = 'none';
     }
 
-    function renderPlayers(list){
-      const tbody = document.getElementById('tabla-jugadores');
-      tbody.innerHTML = '';
-      (list.length ? list : []).forEach((p,idx)=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${idx+1}</td><td>${p.name}</td><td>${p.pos}</td><td>${p.team}</td><td>${isRegistered ? p.rating : 'No registrado'}</td>`;
-        tbody.appendChild(tr);
-      });
-      if(list.length===0){
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td colspan="5" style="color:var(--muted)">No se encontraron jugadores.</td>`;
-        tbody.appendChild(tr);
+    // Guardado simulado en localStorage (sólo demo)
+    function guardarUsuario(){
+      const name = document.getElementById('u_name').value.trim();
+      const email = document.getElementById('u_email').value.trim();
+      if(!name || !email){ alert('Completa nombre y email'); return; }
+      const user = { name, email, registeredAt: new Date().toISOString() };
+      localStorage.setItem('fs_user', JSON.stringify(user));
+      cerrarModal();
+      actualizarUI();
+      alert('Cuenta creada (demo). En producción esto se haría en el servidor.');
+    }
+
+    // Actualiza UI según usuario
+    function actualizarUI(){
+      const raw = localStorage.getItem('fs_user');
+      const summary = document.getElementById('player-summary');
+      const mini = document.getElementById('mini-ranking');
+      if(raw){
+        const user = JSON.parse(raw);
+        summary.innerHTML = '<strong>' + escapeHtml(user.name) + '</strong><br><span class="muted">Jugador registrado</span>';
+        // Ejemplo: mostrar datos reales (demo)
+        mini.innerHTML = '<li>#1 — ' + escapeHtml(user.name) + ' (Extremo)</li><li>#2 — Lucas (Delantero)</li><li>#3 — Mateo (Mediocampista)</li>';
+      } else {
+        summary.textContent = 'No registrado';
+        mini.innerHTML = '<li>#1 — No registrado</li><li>#2 — No registrado</li><li>#3 — No registrado</li>';
       }
     }
 
-    function renderTeams(list){
-      const tbody = document.getElementById('tabla-equipos');
-      tbody.innerHTML='';
-      list.forEach((t,idx)=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${idx+1}</td><td>${t.team}</td><td>${t.zona}</td><td>${t.pts}</td>`;
-        tbody.appendChild(tr);
-      });
+    // Funciones placeholder (herramientas / pro / guías)
+    function abrirGuia(key){
+      alert('Abrir guía: ' + key + '\\n(En esta demo las guías son ejemplos. Aquí se cargará contenido real desde el servidor.)');
     }
-
-    // Filtrado
-    function filtrarJugadores(){
-      const fpos = document.getElementById('f-pos').value;
-      const fliga = document.getElementById('f-liga').value;
-      const fzona = document.getElementById('f-zona').value;
-      const ftext = document.getElementById('f-text').value.trim().toLowerCase();
-
-      let results = mockPlayers.filter(p=>{
-        if(fpos && p.pos !== fpos) return false;
-        if(fliga && p.liga !== fliga) return false;
-        if(fzona && p.zona !== fzona) return false;
-        if(ftext && !(p.name.toLowerCase().includes(ftext) || p.team.toLowerCase().includes(ftext))) return false;
-        return true;
-      });
-      renderPlayers(results);
+    function buscar(){
+      const q = document.getElementById('q').value.trim();
+      if(!q){ alert('Escribe algo para buscar'); return; }
+      alert('Buscando: ' + q + '\\n(En la versión final esto buscará noticias, jugadores y ligas en la base de datos.)');
     }
-
-    // Search button
-    function onBuscar(){
-      const q = document.getElementById('search-input').value.trim();
-      if(!q){ alert('Escribe lo que quieres buscar'); return; }
-      // En esta versión demo mostramos un alert; luego conectarás con búsqueda real
-      alert('Buscar: ' + q + '\\n(En la versión final esta búsqueda estará conectada al índice de jugadores y artículos)');
-    }
-
-    // Tool actions (placeholder)
-    function abrirIMC(){ alert('Calculadora IMC — disponible en herramientas (demo)'); }
-    function abrirVel(){ alert('Test velocidad 30m — disponible en herramientas (demo)'); }
-    function abrirRut(){ alert('Generador de rutinas — disponible en herramientas (demo)'); }
-    function abrirIA(){ alert('Asistente IA: demo — en desarrollo'); }
-
-    // PRO action
     function abrirPro(){
-      if(!isRegistered){
-        if(confirm('La función PRO requiere una cuenta. ¿Deseas registrarte ahora?')) abrirRegistro();
-        return;
-      }
-      alert('Accediendo a funciones PRO: mapas de canchas, academias y rutas.');
+      alert('Ir a funciones Pro (mapa de canchas, academias, análisis). Requiere cuenta Pro.');
     }
 
-    function contactar(){ alert('Formulario de contacto — en construcción'); }
-    function abrirLogin(){ alert('Login — en construcción (demo)'); }
-    function abrirRegistro(){ alert('Registro — en construcción (demo)'); }
+    // Seguridad simple: escape de HTML para mostrar nombres
+    function escapeHtml(str){
+      return str.replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',\"'\":\"&#39;\"}[m]; });
+    }
 
     // Inicialización
     (function init(){
-      renderQuickStats();
-      renderPlayers(mockPlayers);
-      renderTeams(mockTeams);
+      actualizarUI();
     })();
   </script>
 </body>
