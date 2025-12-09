@@ -1,313 +1,223 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FutbolScope — Noticias y recursos para jugadores</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutbolScope</title>
 
-  <!-- Tipos -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            display: flex;
+        }
 
-  <style>
-    :root{
-      --bg-1:#04122a;
-      --bg-2:#072548;
-      --accent:#1e90ff;
-      --accent-2:#ff8f00;
-      --card:#071a2c;
-      --muted: #96a2b8;
-      --glass: rgba(255,255,255,0.03);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg-1),#061a33);color:#e9f2ff;}
-    a{color:inherit;text-decoration:none}
-    /* Layout */
-    .sidebar{
-      position:fixed;left:0;top:0;bottom:0;width:240px;background:linear-gradient(180deg,#071428,#071a2c);border-right:1px solid rgba(255,255,255,0.03);
-      padding:22px 16px;display:flex;flex-direction:column;gap:18px;
-    }
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo-box{width:52px;height:52px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#2aa3ff);box-shadow:0 6px 18px rgba(0,0,0,0.45)}
-    .logo-box img{width:46px;height:46px;object-fit:contain;display:block}
-    .brand h1{font-size:18px;margin:0;font-weight:700}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
+        /* ---------------- BARRA LATERAL ---------------- */
+        .sidebar {
+            width: 250px;
+            background: #0d47a1;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+        }
 
-    .nav{margin-top:8px;display:flex;flex-direction:column;gap:6px}
-    .nav a{padding:10px 12px;border-radius:10px;color:#bfe7ff;font-weight:600;display:flex;align-items:center;gap:10px}
-    .nav a:hover{background:rgba(255,255,255,0.02);transform:translateX(6px);}
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
 
-    /* Main + right */
-    .main-wrap{margin-left:240px;display:flex;gap:22px;padding:22px;min-height:100vh}
-    main{flex:1;min-width:0}
-    aside.right{width:320px;max-width:35%;min-width:260px}
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background: #1565c0;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.2s;
+            text-align: center;
+        }
 
-    /* Topbar */
-    .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
-    .search{flex:1;display:flex;gap:10px}
-    .search input{flex:1;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#eaf7ff;outline:none}
-    .search button{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer}
+        .sidebar a:hover {
+            background: #1e88e5;
+        }
 
-    .actions{display:flex;gap:10px}
-    .btn{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#eaf7ff;font-weight:600;cursor:pointer}
-    .btn.primary{background:var(--accent);border:none}
+        /* ---------------- CONTENIDO PRINCIPAL ---------------- */
+        .main {
+            margin-left: 260px;
+            padding: 30px;
+            width: calc(100% - 260px);
+            display: flex;
+            gap: 20px;
+        }
 
-    /* Hero / foco */
-    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:22px;border-radius:14px;display:flex;gap:20px;align-items:center}
-    .hero-left h2{margin:0;font-size:26px}
-    .hero-left p{margin:6px 0;color:var(--muted)}
-    .chips{display:flex;gap:10px;margin-top:12px}
-    .chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--accent);font-weight:700}
+        /* ---------------- COLUMNA IZQUIERDA ---------------- */
+        .content-left {
+            width: 70%;
+        }
 
-    /* Content grid */
-    .grid{display:grid;grid-template-columns: 1fr 360px; gap:18px;margin-top:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-    .card h3{margin:0 0 8px 0}
-    .muted{color:var(--muted);font-size:14px}
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
 
-    /* Right widgets more compact */
-    .widget{margin-bottom:12px}
-    .small-list{list-style:none;padding:0;margin:6px 0 0 0}
-    .small-list li{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px;font-weight:600;color:#eaf7ff}
+        /* LOGO */
+        .logo-container {
+            width: 200px;
+            margin: 0 auto 20px auto;
+            text-align: center;
+        }
 
-    /* Tools area (only within tools card) */
-    .tools-grid{display:flex;flex-wrap:wrap;gap:10px}
-    .tool-btn{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);color:#eaf7ff;font-weight:700;cursor:pointer}
-    .tool-btn:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+        .logo {
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            background: none !important;
+        }
 
-    /* Small footer */
-    footer{margin-top:18px;color:var(--muted);font-size:13px;padding:18px;text-align:center;background:transparent;border-radius:8px}
+        /* HERRAMIENTAS */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-    /* Responsive */
-    @media (max-width:1000px){
-      aside.right{display:none}
-      .grid{grid-template-columns:1fr}
-      .main-wrap{flex-direction:column;margin-left:0}
-      .sidebar{position:relative;width:100%;display:flex;flex-direction:row;align-items:center;gap:12px;padding:10px}
-      .brand h1{display:none}
-      .main-wrap{padding:12px}
-    }
-  </style>
+        .tool-btn {
+            background: #0d47a1;
+            color: white;
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: #1565c0;
+        }
+
+        /* PRO SECTION */
+        .pro-box {
+            background: #e3f2fd;
+            border-left: 5px solid #0d47a1;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pro-box h3 {
+            margin-top: 0;
+        }
+
+        /* ---------------- COLUMNA DERECHA ---------------- */
+        .content-right {
+            width: 30%;
+        }
+
+        .ranking-small {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .ranking-small h3 {
+            margin-top: 0;
+        }
+
+        .player-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .player-item:last-child {
+            border-bottom: none;
+        }
+
+    </style>
 </head>
 <body>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar" aria-label="navegación principal">
-    <div class="brand" role="banner">
-      <div class="logo-box">
-        <!-- logo.png debe estar en la misma carpeta que index.html -->
-        <img src="logo.png" alt="FutbolScope logo">
-      </div>
-      <div>
-        <h1>FutbolScope</h1>
-        <p>Estadísticas • Noticias • Guías</p>
-      </div>
+    <!-- --------------------- BARRA LATERAL --------------------- -->
+    <div class="sidebar">
+        <h2>FutbolScope</h2>
+
+        <a href="#">Inicio</a>
+        <a href="#">Noticias</a>
+        <a href="#">Veedurías</a>
+        <a href="#">Programas</a>
+        <a href="#">Herramientas</a>
+        <a href="#">Rankings</a>
+        <a href="#">Estadísticas</a>
+        <a href="#">Cuenta</a>
+        <a href="#" style="background:#ffc107; color:black; font-weight:bold;">PRO</a>
     </div>
 
-    <nav class="nav" role="navigation" aria-label="menú">
-      <a href="#inicio">🏠 Inicio</a>
-      <a href="#noticias">📰 Noticias</a>
-      <a href="#guias">📚 Guías</a>
-      <a href="#herramientas">🛠 Herramientas</a>
-      <a href="#rankings">📈 Rankings</a>
-      <a href="#pro">⭐ Pro</a>
-      <a href="#contacto">📞 Contacto</a>
-      <a href="#ajustes">⚙️ Ajustes</a>
-    </nav>
+    <!-- --------------------- CONTENIDO --------------------- -->
+    <div class="main">
 
-    <div style="margin-top:auto;font-size:13px;color:var(--muted)">
-      Hecho por Sasssti
+        <!-- ------- COLUMNA IZQUIERDA ------- -->
+        <div class="content-left">
+
+            <!-- LOGO -->
+            <div class="logo-container">
+                <img src="logo.png" class="logo" alt="FutbolScope Logo">
+            </div>
+
+            <!-- NOTICIAS PRINCIPALES -->
+            <div class="card">
+                <h2>Últimas Noticias de Veedurías</h2>
+                <p>Aquí aparecerán las convocatorias, novedades y noticias más recientes del fútbol base.</p>
+            </div>
+
+            <!-- HERRAMIENTAS COMPLETAS -->
+            <div class="card">
+                <h2>Herramientas</h2>
+
+                <div class="tools-grid">
+                    <div class="tool-btn">Calculadora IMC</div>
+                    <div class="tool-btn">Test de Velocidad</div>
+                    <div class="tool-btn">Generador de Rutinas</div>
+                    <div class="tool-btn">Asistente IA</div>
+                </div>
+            </div>
+
+            <!-- PRO SECTION -->
+            <div class="card pro-box">
+                <h3>🟦 Beneficios del Plan PRO</h3>
+                <ul>
+                    <li>Acceso al Mapa de Canchas</li>
+                    <li>Rankings extendidos y verificados</li>
+                    <li>Subida de estadísticas oficiales</li>
+                    <li>Herramientas avanzadas de análisis</li>
+                    <li>Perfil profesional con insignia</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- ------- COLUMNA DERECHA ------- -->
+        <div class="content-right">
+
+            <div class="ranking-small">
+                <h3>Top Jugadores</h3>
+
+                <div class="player-item">1. Jugador A – Extremo</div>
+                <div class="player-item">2. Jugador B – Volante</div>
+                <div class="player-item">3. Jugador C – Defensa</div>
+                <div class="player-item">4. Jugador D – Portero</div>
+
+            </div>
+
+        </div>
+
     </div>
-  </aside>
 
-  <!-- CONTENIDO PRINCIPAL + RIGHT -->
-  <div class="main-wrap">
-    <main>
-      <!-- TOP BAR -->
-      <div class="topbar">
-        <div class="search">
-          <input id="q" placeholder="Buscar noticias, ligas, jugadores..." aria-label="buscar">
-          <button onclick="buscar()">🔍 Buscar</button>
-        </div>
-
-        <div class="actions">
-          <button class="btn" onclick="abrirRegistro()">Registrarse</button>
-          <button class="btn primary" onclick="abrirLogin()">Iniciar sesión</button>
-        </div>
-      </div>
-
-      <!-- HERO / FOCO -->
-      <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <div class="hero-left">
-          <h2 id="hero-title">Últimas noticias y veedurías para jugadores juveniles</h2>
-          <p class="muted">Encuentra convocatorias, guías de entrenamiento, y recursos para mejorar tu rendimiento.</p>
-
-          <div class="chips" aria-hidden="true">
-            <span class="chip">Entrenamientos</span>
-            <span class="chip">Veedurías</span>
-            <span class="chip">Preparación física</span>
-          </div>
-        </div>
-
-        <div class="hero-right" aria-hidden="true" style="min-width:220px;background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,0.03)">
-          <div style="font-weight:800;font-size:18px">Estado del jugador</div>
-          <div id="player-summary" style="margin-top:8px;color:var(--muted)">No registrado</div>
-        </div>
-      </section>
-
-      <!-- GRID PRINCIPAL: Noticias + Tools (a la izquierda) -->
-      <section class="grid" aria-live="polite">
-        <!-- Left: Noticias / Guías -->
-        <div>
-          <article class="card" id="noticias">
-            <h3>Noticias de veedurías</h3>
-            <p class="muted">Últimas convocatorias y torneos. Mantente atento a las fechas y requisitos.</p>
-            <ul id="news-list" style="margin-top:12px;color:#eaf7ff">
-              <!-- items de noticias (ejemplo) -->
-              <li style="margin-bottom:8px"><strong>Veeduría Sub-17 - La Esperanza</strong> — 12 dic — Requisitos: camiseta, DNI</li>
-              <li style="margin-bottom:8px"><strong>Torneo Juvenil - Villavicencio</strong> — 20 dic — Inscripciones abiertas</li>
-              <li style="margin-bottom:8px"><strong>Convocatoria Sub-15 - Llaneros</strong> — 02 dic — Se buscarán extremos rápidos</li>
-            </ul>
-          </article>
-
-          <article class="card" id="guias" style="margin-top:14px">
-            <h3>Guías y entrenamientos</h3>
-            <p class="muted">Rutinas prácticas para velocidad, resistencia y técnica. Recursos gratuitos y paso a paso.</p>
-            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-              <button class="tool-btn" onclick="abrirGuia('velocidad')">Velocidad (guía)</button>
-              <button class="tool-btn" onclick="abrirGuia('tecnica')">Técnica de control</button>
-              <button class="tool-btn" onclick="abrirGuia('resistencia')">Resistencia</button>
-            </div>
-          </article>
-        </div>
-
-        <!-- Right: Rankings (pequeño) y Widgets -->
-        <aside class="right" aria-label="widgets">
-          <div class="card widget" style="margin-bottom:14px">
-            <h3 id="rankings">Rankings (puedes filtrar en la página de rankings)</h3>
-            <p class="muted">Top jugadores verificados — vista rápida</p>
-            <ul class="small-list" id="mini-ranking">
-              <li>#1 — No registrado</li>
-              <li>#2 — No registrado</li>
-              <li>#3 — No registrado</li>
-            </ul>
-            <div style="margin-top:10px;text-align:right">
-              <a href="#rankings" class="btn">Ver todos</a>
-            </div>
-          </div>
-
-          <div class="card widget">
-            <h3>Pro (herramientas avanzadas)</h3>
-            <p class="muted">Funciones Pro: mapa de canchas, academias, análisis avanzado (requiere cuenta Pro).</p>
-            <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-              <button class="tool-btn" onclick="abrirPro()">Ir a Pro</button>
-            </div>
-          </div>
-
-          <div class="card widget">
-            <h3>Enlaces útiles</h3>
-            <p class="muted">Accesos rápidos</p>
-            <ul style="margin-top:8px;color:#eaf7ff;list-style:none;padding:0">
-              <li style="margin-bottom:8px"><a href="#guias">Guías rápidas</a></li>
-              <li style="margin-bottom:8px"><a href="#herramientas">Herramientas</a></li>
-              <li style="margin-bottom:8px"><a href="#contacto">Contacto</a></li>
-            </ul>
-          </div>
-        </aside>
-      </section>
-
-      <footer>
-        <div style="max-width:1000px;margin:auto">
-          FutbolScope — Términos • Privacidad • Cookies
-        </div>
-      </footer>
-    </main>
-
-    <!-- RIGHT (movido a la derecha solo en escritorio) -->
-  </div>
-
-  <!-- MODALES SIMPLES (login / registro) -->
-  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:999">
-    <div style="background:linear-gradient(180deg,#081525,#0f2b46);padding:20px;border-radius:12px;max-width:420px;width:92%;box-shadow:0 20px 60px rgba(0,0,0,0.6);color:#eaf7ff">
-      <h3 id="modal-title">Iniciar sesión</h3>
-      <p id="modal-msg" style="color:var(--muted);margin-top:6px">Accede para ver tus estadísticas y herramientas.</p>
-
-      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
-        <input id="u_name" placeholder="Nombre" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:#eaf7ff;">
-        <input id="u_email" placeholder="Email (ejemplo@correo.com)" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:#eaf7ff;">
-        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
-          <button class="btn" onclick="cerrarModal()">Cancelar</button>
-          <button class="btn primary" onclick="guardarUsuario()">Guardar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // ---------- UTILIDADES ----------
-    function abrirLogin(){
-      document.getElementById('modal-title').innerText = 'Iniciar sesión';
-      document.getElementById('modal-msg').innerText = 'Accede para ver tus estadísticas y herramientas.';
-      document.getElementById('modal').style.display = 'flex';
-    }
-    function abrirRegistro(){
-      document.getElementById('modal-title').innerText = 'Registrarse';
-      document.getElementById('modal-msg').innerText = 'Regístrate para obtener un perfil y estadísticas verificables.';
-      document.getElementById('modal').style.display = 'flex';
-    }
-    function cerrarModal(){
-      document.getElementById('modal').style.display = 'none';
-    }
-
-    // Guardado simulado en localStorage (sólo demo)
-    function guardarUsuario(){
-      const name = document.getElementById('u_name').value.trim();
-      const email = document.getElementById('u_email').value.trim();
-      if(!name || !email){ alert('Completa nombre y email'); return; }
-      const user = { name, email, registeredAt: new Date().toISOString() };
-      localStorage.setItem('fs_user', JSON.stringify(user));
-      cerrarModal();
-      actualizarUI();
-      alert('Cuenta creada (demo). En producción esto se haría en el servidor.');
-    }
-
-    // Actualiza UI según usuario
-    function actualizarUI(){
-      const raw = localStorage.getItem('fs_user');
-      const summary = document.getElementById('player-summary');
-      const mini = document.getElementById('mini-ranking');
-      if(raw){
-        const user = JSON.parse(raw);
-        summary.innerHTML = '<strong>' + escapeHtml(user.name) + '</strong><br><span class="muted">Jugador registrado</span>';
-        // Ejemplo: mostrar datos reales (demo)
-        mini.innerHTML = '<li>#1 — ' + escapeHtml(user.name) + ' (Extremo)</li><li>#2 — Lucas (Delantero)</li><li>#3 — Mateo (Mediocampista)</li>';
-      } else {
-        summary.textContent = 'No registrado';
-        mini.innerHTML = '<li>#1 — No registrado</li><li>#2 — No registrado</li><li>#3 — No registrado</li>';
-      }
-    }
-
-    // Funciones placeholder (herramientas / pro / guías)
-    function abrirGuia(key){
-      alert('Abrir guía: ' + key + '\\n(En esta demo las guías son ejemplos. Aquí se cargará contenido real desde el servidor.)');
-    }
-    function buscar(){
-      const q = document.getElementById('q').value.trim();
-      if(!q){ alert('Escribe algo para buscar'); return; }
-      alert('Buscando: ' + q + '\\n(En la versión final esto buscará noticias, jugadores y ligas en la base de datos.)');
-    }
-    function abrirPro(){
-      alert('Ir a funciones Pro (mapa de canchas, academias, análisis). Requiere cuenta Pro.');
-    }
-
-    // Seguridad simple: escape de HTML para mostrar nombres
-    function escapeHtml(str){
-      return str.replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',\"'\":\"&#39;\"}[m]; });
-    }
-
-    // Inicialización
-    (function init(){
-      actualizarUI();
-    })();
-  </script>
 </body>
 </html>
