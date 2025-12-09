@@ -1,126 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FutbolScope</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FutbolScope • Noticias, Herramientas y Rankings</title>
 
-  <!-- Fuentes -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg-1: #061428;        /* fondo principal */
-      --bg-2: linear-gradient(135deg,#062a57 0%, #04203a 100%);
-      --card: rgba(255,255,255,0.03);
-      --glass: rgba(255,255,255,0.04);
-      --accent: #1e88e5;
-      --accent-2: #ffb74d;
-      --muted: #9fb0c8;
-      --white: #eaf6ff;
-      --radius: 12px;
-    }
+    <style>
+      :root{
+        --bg-1: #061428;        /* fondo principal */
+        --bg-2: linear-gradient(135deg,#061428 0%, #041a34 100%);
+        --card: rgba(255,255,255,0.03);
+        --glass: rgba(255,255,255,0.04);
+        --accent: #0f4ea8;      /* azul profesional FutbolScope */
+        --accent-2: #ffb74d;
+        --muted: #9fb0c8;
+        --white: #eaf6ff;
+        --radius: 12px;
+      }
 
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;color:var(--white);background:var(--bg-2);}
+      *{box-sizing:border-box}
+      html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;color:var(--white);background:var(--bg-2);}
 
-    /* Sidebar */
-    .sidebar{
-      position:fixed; left:0; top:0; bottom:0;
-      width:240px;
-      padding:22px;
-      background: rgba(4,14,28,0.6);
-      border-right:1px solid rgba(255,255,255,0.03);
-      backdrop-filter: blur(6px);
-    }
-    .brand{
-      display:flex;align-items:center;gap:12px;margin-bottom:18px;
-    }
-    .brand img.logo {
-      width:52px;height:52px;border-radius:12px;object-fit:contain;background:transparent; /* logo.png must be clean */
-    }
-    .brand .title{font-weight:700;font-size:18px;color:var(--white)}
-    .brand .sub{font-size:12px;color:var(--muted)}
+      /* SIDEBAR */
+      .sidebar{
+        position:fixed; left:0; top:0; bottom:0;
+        width:240px;
+        padding:22px;
+        background: rgba(4,14,28,0.6);
+        border-right:1px solid rgba(255,255,255,0.03);
+        backdrop-filter: blur(6px);
+      }
+      .brand{
+        display:flex;align-items:center;gap:12px;margin-bottom:18px;
+      }
+      .brand img.logo {
+        width:52px;height:52px;border-radius:8px;object-fit:contain;background:transparent;
+      }
+      .brand .title{font-weight:700;font-size:18px;color:var(--white)}
+      .brand .sub{font-size:12px;color:var(--muted)}
 
-    .nav{margin-top:18px;display:flex;flex-direction:column;gap:6px}
-    .nav a{
-      padding:10px 12px;border-radius:10px;color:var(--white);text-decoration:none;font-weight:600;display:flex;gap:10px;align-items:center;
-      transition:all .18s ease;
-    }
-    .nav a:hover{background:rgba(255,255,255,0.03); transform:translateX(6px);}
+      .nav{margin-top:18px;display:flex;flex-direction:column;gap:6px}
+      .nav a{
+        padding:10px 12px;border-radius:10px;color:var(--white);text-decoration:none;font-weight:600;display:flex;gap:10px;align-items:center;
+        transition:all .18s ease;
+      }
+      .nav a:hover{background:rgba(255,255,255,0.03); transform:translateX(6px);}
 
-    .sidebar .pro-badge{display:block;margin-top:18px;padding:10px;border-radius:10px;background:linear-gradient(90deg,#1e88e5,#1565c0);text-align:center;font-weight:700;color:white}
+      .sidebar .pro-badge{display:block;margin-top:18px;padding:10px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#0b66c2);text-align:center;font-weight:700;color:white}
 
-    /* Main layout */
-    main{
-      margin-left:260px; padding:28px; min-height:100vh;
-    }
+      /* MAIN */
+      main{margin-left:260px;padding:28px;min-height:100vh;}
 
-    .topbar{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
-    .search{
-      display:flex;gap:8px;flex:1;max-width:760px;
-    }
-    .search input{
-      flex:1;padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);outline:none
-    }
-    .search button{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer}
+      .topbar{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
+      .search{display:flex;gap:8px;flex:1;max-width:760px;}
+      .search input{flex:1;padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);outline:none}
+      .search button{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer}
+      .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--white);font-weight:700;text-decoration:none}
 
-    .hero{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:26px;border-radius:var(--radius);display:flex;gap:20px;align-items:center;justify-content:space-between;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    .hero .left h1{margin:0;font-size:28px}
-    .hero .left p{margin:6px 0;color:var(--muted);max-width:720px}
-    .hero .ctas{margin-top:12px;display:flex;gap:10px}
-    .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--white);font-weight:700;text-decoration:none}
-    .hero .right{min-width:220px;padding:14px;border-radius:10px;background:rgba(255,255,255,0.02);text-align:center}
-    .hero .kpi{font-weight:800;font-size:20px;margin-top:8px}
+      .hero{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:26px;border-radius:var(--radius);display:flex;gap:20px;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,0.03);}
+      .hero .left h1{margin:0;font-size:28px}
+      .hero .left p{margin:6px 0;color:var(--muted);max-width:720px}
+      .hero .ctas{margin-top:12px;display:flex;gap:10px}
 
-    /* Layout grid (principal) */
-    .layout{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-    /* left column (contenido principal) */
-    .col-main{display:flex;flex-direction:column;gap:18px}
-    .card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 6px 20px rgba(0,0,0,0.35)}
-    .card h3{margin:0 0 8px 0;color:var(--white)}
-    .muted{color:var(--muted);font-size:14px}
+      /* GRID LAYOUT */
+      .layout{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
+      .col-main{display:flex;flex-direction:column;gap:18px}
+      .card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 6px 20px rgba(0,0,0,0.35)}
+      .card h3{margin:0 0 8px 0;color:var(--white)}
+      .muted{color:var(--muted);font-size:14px}
 
-    /* Herramientas (dentro de sección herramientas) */
-    .tools-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
-    .tool-btn{
-      background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px 16px;border-radius:12px;color:var(--white);cursor:pointer;font-weight:700;
-      transition:all .18s ease; min-width:120px; text-align:center;
-    }
-    .tool-btn:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+      /* Herramientas (botones) */
+      .tools-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+      .tool-btn{
+        background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px 16px;border-radius:12px;color:var(--white);cursor:pointer;font-weight:700;
+        transition:all .18s ease; min-width:120px; text-align:center;
+      }
+      .tool-btn:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
 
-    /* Pro area (compact) */
-    .pro-grid{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-    .pro-card{flex:1;padding:16px;border-radius:12px;background:linear-gradient(90deg,#0f4ea8,#0b66c2);color:white}
+      /* PRO area */
+      .pro-grid{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+      .pro-card{flex:1;padding:16px;border-radius:12px;background:linear-gradient(90deg,#0f4ea8,#0b66c2);color:white}
 
-    /* Right column (ranking + user stats) */
-    .col-side{display:flex;flex-direction:column;gap:14px}
-    .rank-list{list-style:none;padding:0;margin:6px 0}
-    .rank-list li{padding:8px 10px;border-radius:10px;margin-bottom:8px;background:rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center}
+      /* Right column */
+      .col-side{display:flex;flex-direction:column;gap:14px}
+      .rank-list{list-style:none;padding:0;margin:6px 0}
+      .rank-list li{padding:8px 10px;border-radius:10px;margin-bottom:8px;background:rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center}
 
-    .user-stats{display:flex;flex-direction:column;gap:8px}
-    .stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02)}
+      .user-stats{display:flex;flex-direction:column;gap:8px}
+      .stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02)}
 
-    /* Footer */
-    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center;padding:6px}
+      footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center;padding:6px}
 
-    /* Responsive */
-    @media (max-width:980px){
-      main{padding:18px;margin-left:0}
-      .layout{grid-template-columns:1fr}
-      .sidebar{display:none}
-    }
-  </style>
+      @media (max-width:980px){
+        main{padding:18px;margin-left:0}
+        .layout{grid-template-columns:1fr}
+        .sidebar{display:none}
+      }
+    </style>
 </head>
 <body>
   <!-- SIDEBAR -->
   <aside class="sidebar" role="navigation" aria-label="menu lateral">
     <div class="brand">
-      <!-- Logo: sube logo.png en la raíz del repo -->
+      <!-- Logo: coloca logo.png en la raíz del repo (sin fondo). -->
       <img class="logo" src="logo.png" alt="FutbolScope logo">
       <div>
         <div class="title">FutbolScope</div>
@@ -138,7 +123,7 @@
       <a href="#contacto">📞 Contacto</a>
     </nav>
 
-    <div class="pro-badge" style="margin-top:18px;">Pro • Más funciones</div>
+    <div class="pro-badge" aria-hidden>Pro • Más funciones</div>
   </aside>
 
   <!-- MAIN -->
@@ -169,11 +154,10 @@
 
       <div class="right">
         <div style="font-size:13px;color:var(--muted)">Resumen rápido</div>
-        <div class="kpi">Goles (mes): <strong>—</strong></div>
-        <div class="kpi" style="margin-top:6px">Asistencias (mes): <strong>—</strong></div>
-        <!-- boton de probar registro (solo demo) -->
+        <div style="font-weight:800;font-size:18px;margin-top:8px">Goles (mes): <strong id="res-goles">—</strong></div>
+        <div style="font-weight:800;font-size:18px;margin-top:6px">Asistencias (mes): <strong id="res-asist">—</strong></div>
         <div style="margin-top:10px">
-          <button class="pill" onclick="simularRegistro()">Simular registro</button>
+          <button class="pill" onclick="simularRegistro()">Simular registro (demo)</button>
         </div>
       </div>
     </section>
@@ -185,58 +169,68 @@
         <!-- NOTICIAS / VEEDURIAS -->
         <section id="noticias" class="card" aria-labelledby="noticias-title">
           <h3 id="noticias-title">Últimas noticias y veedurías</h3>
-          <p class="muted">Información sobre próximas pruebas, convocatorias y novedades locales. (Contenido dinámico pronto)</p>
+          <p class="muted">Próximas pruebas y convocatorias. (Contenido dinámico se conectará con backend).</p>
           <div style="margin-top:12px">
-            <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:8px">
+            <article style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:8px">
               <strong>Veeduría Sub-17 - La Esperanza</strong>
               <div class="muted" style="font-size:13px">Fecha: 2025-11-21 · Ciudad: Villavicencio</div>
-            </div>
-            <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:8px">
+            </article>
+            <article style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:8px">
               <strong>Convocatoria Escuela X - Sub-15</strong>
               <div class="muted" style="font-size:13px">Fecha: 2025-12-05 · Ciudad: Bogotá</div>
-            </div>
+            </article>
           </div>
         </section>
 
-        <!-- HERRAMIENTAS (botones) -->
+        <!-- HERRAMIENTAS -->
         <section id="herramientas" class="card" aria-labelledby="herramientas-title">
           <h3 id="herramientas-title">Herramientas</h3>
-          <p class="muted">Calculadoras y generadores para entrenamientos. (Las herramientas reales se abrirán cuando se implemente el backend)</p>
+          <p class="muted">Calculadoras y generadores — disponibles dentro de esta sección.</p>
 
           <div class="tools-grid" role="list">
-            <!-- Mantenemos el diseño limpio y consistente -->
+            <!-- Diseño consistente y profesional -->
             <button class="tool-btn" onclick="abrirIMC()">🧮 IMC</button>
             <button class="tool-btn" onclick="abrirVel()">⚡ Test 30 m</button>
             <button class="tool-btn" onclick="abrirRut()">📝 Generador de rutinas</button>
             <button class="tool-btn" onclick="abrirIA()">🤖 Asistente IA</button>
-            <button class="tool-btn" onclick="abrirPro()">⭐ PRO (ver funciones)</button>
+            <button class="tool-btn" onclick="abrirPro()">⭐ PRO (funciones)</button>
           </div>
         </section>
 
-        <!-- PRO (beneficios) -->
+        <!-- SECCIÓN: CONSEJOS / ENTRENAMIENTOS (atrae público) -->
+        <section id="guias" class="card" aria-labelledby="guias-title">
+          <h3 id="guias-title">Entrenamientos y consejos</h3>
+          <p class="muted">Rutinas, nutrición y hábitos para mejorar como jugador.</p>
+          <ul style="margin-top:10px;color:var(--muted)">
+            <li>Calentamiento para velocidad — 10 minutos</li>
+            <li>Rutina de cambio de ritmo — 3 series</li>
+            <li>Plan de comidas rápidas y económicas para jóvenes deportistas</li>
+          </ul>
+        </section>
+
+        <!-- PRO -->
         <section id="pro" class="card" aria-labelledby="pro-title">
           <h3 id="pro-title">FutbolScope PRO</h3>
-          <p class="muted">Funciones avanzadas para equipos, entrenadores y jugadores serios (pago).</p>
+          <p class="muted">Funciones avanzadas para clubes, entrenadores y jugadores serios (pago).</p>
           <div class="pro-grid" style="margin-top:12px">
             <div class="pro-card">
               <div style="font-weight:800">Mapa de canchas y academias</div>
-              <div style="font-size:13px;color:rgba(255,255,255,0.9);margin-top:8px">Encuentra academias cercanas, reseñas y rutas.</div>
+              <div style="font-size:13px;margin-top:8px;color:rgba(255,255,255,0.95)">Encuentra academias cercanas, reseñas y rutas (PRO).</div>
             </div>
-            <div class="pro-card" style="background:linear-gradient(90deg,#ff8f00,#ffb74d)">
-              <div style="font-weight:800;color:#051428">Panel de scouts y analítica</div>
-              <div style="font-size:13px;color:rgba(5,20,40,0.9);margin-top:8px">Rankings filtrables, exportación y datos verificados.</div>
+            <div class="pro-card" style="background:linear-gradient(90deg,#ff8f00,#ffb74d);color:#051428">
+              <div style="font-weight:800">Panel de scouts y analítica</div>
+              <div style="font-size:13px;margin-top:8px;color:rgba(5,20,40,0.9)">Rankings filtrables, exportación y datos verificados.</div>
             </div>
           </div>
         </section>
+      </div>
 
-      </div> <!-- /col-main -->
-
-      <!-- COLUMNA DERECHA (Ranking pequeño + Estadísticas usuario) -->
+      <!-- COLUMNA DERECHA -->
       <aside class="col-side">
-        <!-- RANKINGS (pequeño) -->
+        <!-- RANKINGS PEQUEÑO -->
         <div class="card" id="rankings-small">
           <h3>Top jugadores (local)</h3>
-          <p class="muted">Ver todos en la sección Rankings.</p>
+          <p class="muted">Ver todos en Rankings (barra lateral).</p>
           <ul class="rank-list" id="top-list" aria-live="polite">
             <li><span>#1 — Santiago</span><strong>92</strong></li>
             <li><span>#2 — Lucas</span><strong>89</strong></li>
@@ -245,7 +239,7 @@
           <a class="pill" href="#rankings" style="display:inline-block;margin-top:8px">Ir a Rankings</a>
         </div>
 
-        <!-- ESTADÍSTICAS DEL USUARIO -->
+        <!-- ESTADÍSTICAS DEL USUARIO (INICIAL: No registrado) -->
         <div class="card user-stats" id="user-stats">
           <h3>Mi perfil</h3>
           <div class="stat-row"><div>Nombre</div><div id="stat-nombre" class="muted">No registrado</div></div>
@@ -258,7 +252,7 @@
           </div>
         </div>
 
-        <!-- FILTROS ACCESO RAPIDO PARA RANKINGS -->
+        <!-- FILTROS RÁPIDOS PARA RANKINGS -->
         <div class="card">
           <h3>Filtros rápidos</h3>
           <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
@@ -278,15 +272,15 @@
           </div>
         </div>
       </aside>
-    </div> <!-- /layout -->
+    </div>
 
     <footer>
-      FutbolScope • Términos • Privacidad • Cookies
+      FutbolScope • Términos • Privacidad • Cookies • Hecho por Sasssti
     </footer>
   </main>
 
   <script>
-    /* ---------- Comportamiento y placeholders ---------- */
+    /* ---------- Estado demo y funciones (front-end) ---------- */
 
     // Estado simulado (demo). En producción esto vendrá del backend.
     let usuario = null; // si null -> no registrado
@@ -295,18 +289,21 @@
       const q = document.getElementById('q').value.trim();
       if(!q){ alert('Escribe lo que buscas'); return; }
       // En producción: realizar búsqueda en backend
-      alert('Buscando: ' + q + '\\n(Integrar búsqueda real con backend)');
+      alert('Buscando: ' + q + '\\n(Esto es demo — integrar búsqueda real con backend).');
     }
 
-    function abrirLogin(){ alert('Función de inicio de sesión en construcción'); }
+    function abrirLogin(){ alert('Función de inicio de sesión en construcción (demo).'); }
+
     function abrirRegistro(){
-      // demo: pedir nombre simple y simular login
+      // demo simple: pedir nombre y simular registro
       const nombre = prompt('Nombre (demo registro):');
       if(!nombre) return;
+      // simulación de datos básicos
       usuario = { nombre: nombre, posicion: 'Delantero', equipo: 'Escuela Demo', goles: 5 };
       actualizarEstadisticas();
-      alert('Registro simulado completado. Ahora tu perfil muestra datos (solo demo).');
+      alert('Registro demo completado. Tu perfil ahora muestra datos (solo demo).');
     }
+
     function cerrarSesion(){
       usuario = null;
       actualizarEstadisticas();
@@ -321,51 +318,58 @@
         document.getElementById('stat-pos').innerText = 'No registrado';
         document.getElementById('stat-equipo').innerText = 'No registrado';
         document.getElementById('stat-goles').innerText = 'No registrado';
+        document.getElementById('res-goles').innerText = '—';
+        document.getElementById('res-asist').innerText = '—';
       } else {
         document.getElementById('stat-nombre').innerText = usuario.nombre;
         document.getElementById('stat-pos').innerText = usuario.posicion;
         document.getElementById('stat-equipo').innerText = usuario.equipo;
         document.getElementById('stat-goles').innerText = usuario.goles;
+        document.getElementById('res-goles').innerText = usuario.goles;
+        document.getElementById('res-asist').innerText = 0;
       }
     }
 
-    // Herramientas: abrir (demo)
-    function abrirIMC(){ alert('IMC — herramienta (demo). Implementar formulario con cálculo.'); }
-    function abrirVel(){ alert('Test velocidad 30m — demo. Integrar medición y resultados.'); }
-    function abrirRut(){ alert('Generador de rutinas — demo. Implementar generador real.'); }
-    function abrirIA(){ alert('Asistente IA — demo. Integrar servicio IA para recomendaciones.'); }
+    // Herramientas: demo
+    function abrirIMC(){ alert('IMC — herramienta (demo).'); }
+    function abrirVel(){ alert('Test velocidad 30m — demo.'); }
+    function abrirRut(){ alert('Generador de rutinas — demo.'); }
+    function abrirIA(){ alert('Asistente IA — demo.'); }
     function abrirPro(){ location.href = '#pro'; }
 
     // Rankings: filtrado demo (solo visual)
     function filtrarRanking(){
-      // En producción: enviar filtros al backend y recargar lista.
       const pos = document.getElementById('f-pos').value;
       const liga = document.getElementById('f-liga').value;
-      alert('Filtrando ranking por: ' + (pos||'Todas las posiciones') + ', ' + (liga||'Todas las ligas') + '\\n(Integrar con backend para resultados reales.)');
+      alert('Filtrando ranking por: ' + (pos||'Todas las posiciones') + ', ' + (liga||'Todas las ligas') + '\\n(Integrar con backend para resultados reales).');
     }
 
-    // Inicial
+    // Animaciones iniciales y carga
     document.addEventListener('DOMContentLoaded', ()=>{
       actualizarEstadisticas();
-      // animar entrada ligera
       document.querySelectorAll('.card').forEach((c,i)=>{
         c.style.opacity = 0;
         setTimeout(()=>{ c.style.transition='opacity .45s ease, transform .35s ease'; c.style.opacity=1; c.style.transform='translateY(0)'; }, 90*i);
       });
     });
 
-    /* ---------- NOTAS DE IMPLEMENTACIÓN FUTURA (no públicas) ----------
-     - Este HTML/CSS/JS es front-end (público). Para seguridad real, manejar
-       registros, sesiones, verificación de estadísticas y datos sensibles
-       necesitas un backend (ej: Node.js, Python/Django, Firebase) + Base de datos.
-     - Para validar estadísticas y evitar fraudes:
-         * Implementar roles: jugador, entrenador, club, admin.
-         * Requerir verificación de clubes/entrenadores (documentos / acreditaciones).
-         * Cada partido/resultado debe tener evidencia (foto, acta, árbitro).
-         * Construir un sistema de auditoría para cambios en stats.
-     - Para IA: integrar un servicio (API) en el backend que procese datos
-       y devuelva recomendaciones. No ejecutar modelos pesados desde front-end.
-    ------------------------------------------------------------------- */
+    /* ---------- NOTAS IMPORTANTES (NO PÚBLICAS) ----------
+     1) Seguridad y verificación real (BACKEND):
+        - Este archivo es front-end (público): HTML/CSS/JS. Todo registro, login,
+          verificación de roles, comprobación de estadísticas y manejo de datos
+          sensibles debe hacerse en un backend seguro (ej. Django, Node, Firebase).
+        - Para evitar fraudes en estadísticas:
+           • Roles verificados: entrenador/club/admin.
+           • Subida de evidencia (actas, fotos, videos) para cada partido.
+           • Auditoría y aprobaciones por parte de cuentas verificadas.
+        - Para la IA: integrar una API en el backend que consulte modelos/servicios
+          y devuelva recomendaciones (no ejecutar modelos pesados en el front).
+     2) Archivos:
+        - Coloca tu imagen de logo llamada "logo.png" en la raíz del repositorio.
+     3) Siguientes pasos:
+        - Implementar endpoints para: login/register, subir partidos, verificar clubs,
+          listar noticias dinámicas y rankings filtrables.
+    ------------------------------------------------------ */
   </script>
 </body>
 </html>
